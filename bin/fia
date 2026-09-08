@@ -1,0 +1,109 @@
+#!/bin/bash
+# fia — one command to run the whole local-AI platform.
+#
+# claude-code-local is how you find it. `fia` is what it becomes once installed:
+# one front door over the brain, voice, browser, phone, and studio — all on-device.
+#
+# Each mode just drives a launcher/module you already have. Nothing here is new
+# intelligence; it's the single entry point that ties the pieces into one program.
+
+set -euo pipefail
+
+# Resolve the repo root from this script's location (bin/fia -> repo root).
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+REPO_ROOT="$(cd "$SCRIPT_DIR/.." && pwd)"
+LAUNCHERS="$REPO_ROOT/launchers"
+
+C_DIM=$'\033[2m'; C_B=$'\033[1m'; C_GRN=$'\033[32m'; C_YEL=$'\033[33m'; C_RST=$'\033[0m'
+
+# Run an in-repo launcher, or explain how to get the module if it's missing.
+# Args: <launcher-file-or-path> <human-name> <install-hint>
+run_or_hint() {
+  local target="$1" name="$2" hint="$3"
+  if [ -x "$target" ] || [ -f "$target" ]; then
+    exec bash "$target"
+  fi
+  echo "  ${C_YEL}$name isn't installed yet.${C_RST}"
+  echo "  ${C_DIM}$hint${C_RST}"
+  exit 1
+}
+
+cmd_status() {
+  echo ""
+  echo "  ${C_B}Fia — status${C_RST}"
+  # Brain: is the local MLX server up, and which fighter is loaded?
+  local model
+  model="$(curl -sf http://127.0.0.1:4000/health 2>/dev/null \
+    | python3 -c 'import json,sys; print(json.load(sys.stdin).get("model",""))' 2>/dev/null || true)"
+  if [ -n "$model" ]; then
+    echo "  🧠 Brain    ${C_GRN}running${C_RST}  ${C_DIM}(${model##*/})${C_RST}"
+  else
+    echo "  🧠 Brain    ${C_DIM}stopped — 'fia start' to boot a fighter${C_RST}"
+  fi
+  # Browser debug port
+  if lsof -i :9222 >/dev/null 2>&1; then
+    echo "  🌐 Browser  ${C_GRN}ready${C_RST}"
+  else
+    echo "  🌐 Browser  ${C_DIM}off${C_RST}"
+  fi
+  # Airgap proof: is Wi-Fi actually off?
+  if command -v networksetup >/dev/null 2>&1; then
+    local wifi
+    wifi="$(networksetup -getairportpower en0 2>/dev/null | awk '{print $NF}')"
+    if [ "$wifi" = "Off" ]; then
+      echo "  🔒 Wi-Fi    ${C_GRN}OFF — fully airgapped${C_RST}"
+    else
+      echo "  🔒 Wi-Fi    ${C_DIM}On${C_RST}"
+    fi
+  fi
+  echo ""
+}
+
+cmd_help() {
+  cat <<EOF
+
+  ${C_B}🧠 Fia${C_RST} — your local AI, the whole thing in one command.
+  ${C_DIM}Everything runs on your Mac. Nothing goes to the cloud.${C_RST}
+
+  ${C_B}Pick a mode:${C_RST}
+    fia start            🧠 Brain   — code with a local model (the easy button)
+    fia gemma | llama    🧠 Brain   — pick a specific fighter
+    fia voice            🎤 Voice   — talk to it, hear your cloned voice back
+    fia browser          🌐 Browser — let it drive your browser
+    fia phone            📱 Phone   — control it from your phone by text
+    fia make film|music  🎬 Studio  — create something, locally
+    fia status               — what's running (and proof Wi-Fi is off)
+    fia help                 — this menu
+
+EOF
+}
+
+main() {
+  local sub="${1:-help}"; shift || true
+  case "$sub" in
+    start|code|brain) run_or_hint "$LAUNCHERS/Claude Local.command" "Brain" "Run setup.sh, then download a model: scripts/download-and-import.sh gemma" ;;
+    gemma)            run_or_hint "$LAUNCHERS/Gemma 4 Code.command"  "Gemma" "scripts/download-and-import.sh gemma" ;;
+    llama)            run_or_hint "$LAUNCHERS/Llama 70B.command"     "Llama" "scripts/download-and-import.sh llama" ;;
+    voice|narrate)    run_or_hint "$LAUNCHERS/Narrative Gemma.command" "Voice" "Install NarrateClaude: github.com/nicedreamzapp/NarrateClaude" ;;
+    browser)          run_or_hint "$LAUNCHERS/Browser Agent.command" "Browser" "Install browser-agent: github.com/nicedreamzapp/browser-agent" ;;
+    phone)
+      if [ -x "$HOME/.claude/imessage-toggle.sh" ]; then
+        exec bash "$HOME/.claude/imessage-toggle.sh"
+      fi
+      echo "  ${C_YEL}Phone mode isn't installed yet.${C_RST}"
+      echo "  ${C_DIM}Install screen-to-phone: github.com/nicedreamzapp/claude-screen-to-phone${C_RST}"
+      exit 1 ;;
+    make)
+      local what="${1:-}"
+      case "$what" in
+        film|video) echo "  🎬 Studio (film) — install story-forge: github.com/nicedreamzapp/story-forge" ;;
+        music)      echo "  🎬 Studio (music) — install song-forge: github.com/nicedreamzapp/song-forge" ;;
+        *)          echo "  Usage: fia make film | music" ;;
+      esac ;;
+    status)           cmd_status ;;
+    help|-h|--help)   cmd_help ;;
+    *) echo "  Unknown mode: $sub"; cmd_help; exit 1 ;;
+  esac
+}
+
+main "$@"
