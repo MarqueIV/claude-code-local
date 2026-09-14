@@ -600,44 +600,63 @@ def parse_tool_calls(text):
     # Format 3.6: JSON inside markdown code block — ```json\n{"name":..,"arguments":..}\n```
     # Some Qwen 2.5 fine-tunes emit tool calls as a fenced code block when the
     # system prompt / chat template doesn't explicitly tell them to use the
-    # native <tool_call> wrapper. Two sub-cases supported:
+    # native <tool_call> wrapper. Three sub-cases supported:
     #   (a) single JSON object inside the fence
     #   (b) multiple JSON objects back-to-back inside the same fence (no
     #       array, no commas) — the model expressing several sequential
     #       tool calls in one go. Use raw_decode in a loop to extract them.
+    #   (c) a single JSON array of call objects — Hermes 4 14B emits this
+    #       shape instead of (b); without this branch the whole fence was
+    #       skipped (array doesn't start with "{") and fell through to the
+    #       garbled-tool-call retry path even though the JSON was valid.
+    def _as_call(obj):
+        if not isinstance(obj, dict):
+            return None
+        name = obj.get("name") or obj.get("tool")
+        args = (
+            obj.get("arguments")
+            or obj.get("parameters")
+            or obj.get("args")
+            or obj.get("input")
+        )
+        return {"name": name, "arguments": args} if name and isinstance(args, dict) else None
+
     if not tool_calls:
         pattern_md = r'```(?:json|tool[_ ]?call)?\s*\n?(.*?)\s*\n?```'
         decoder_md = json.JSONDecoder()
         for match in re.finditer(pattern_md, text, re.DOTALL):
             content = match.group(1).strip()
-            if not content.lstrip().startswith("{"):
+            stripped = content.lstrip()
+            if not stripped.startswith("{") and not stripped.startswith("["):
                 continue
             extracted_in_block = []
-            pos = 0
-            while pos < len(content):
-                # Skip whitespace and stray commas between objects
-                while pos < len(content) and content[pos] in " \t\n\r,":
-                    pos += 1
-                if pos >= len(content):
-                    break
-                if content[pos] != "{":
-                    break
+            if stripped.startswith("["):
                 try:
-                    obj, end_pos = decoder_md.raw_decode(content, pos)
+                    items = json.loads(content)
                 except json.JSONDecodeError:
-                    break
-                pos = end_pos
-                if not isinstance(obj, dict):
-                    continue
-                name = obj.get("name") or obj.get("tool")
-                args = (
-                    obj.get("arguments")
-                    or obj.get("parameters")
-                    or obj.get("args")
-                    or obj.get("input")
-                )
-                if name and isinstance(args, dict):
-                    extracted_in_block.append({"name": name, "arguments": args})
+                    items = []
+                for obj in items if isinstance(items, list) else []:
+                    call = _as_call(obj)
+                    if call:
+                        extracted_in_block.append(call)
+            else:
+                pos = 0
+                while pos < len(content):
+                    # Skip whitespace and stray commas between objects
+                    while pos < len(content) and content[pos] in " \t\n\r,":
+                        pos += 1
+                    if pos >= len(content):
+                        break
+                    if content[pos] != "{":
+                        break
+                    try:
+                        obj, end_pos = decoder_md.raw_decode(content, pos)
+                    except json.JSONDecodeError:
+                        break
+                    pos = end_pos
+                    call = _as_call(obj)
+                    if call:
+                        extracted_in_block.append(call)
             if extracted_in_block:
                 tool_calls.extend(extracted_in_block)
                 remaining = remaining.replace(match.group(0), "", 1)
@@ -969,7 +988,8 @@ RULES:
 - Greetings, small talk, or questions about yourself: respond in plain text with NO tool calls.
 - For real tasks: read files before editing them, use absolute paths, batch independent tool calls in parallel.
 - NEVER say "I am not able to execute this task" or "this exceeds my limitations" — you have full tool access on this machine. If a request is genuinely unclear, ask one short clarifying question instead of refusing.
-- When you call a tool, use the <tool_call> JSON format exactly as instructed. Do not wrap it in markdown."""
+- When you call a tool, use the <tool_call> JSON format exactly as instructed. Do not wrap it in markdown.
+- A message containing a <command-name> tag is a slash command invocation: call the Skill tool with skill set to the tag's contents (without the leading slash) and args set to any <command-args> content. Do not guess at what the skill does — call it."""
 
 # Built-in Claude Code tools that signal a coding session and are worth keeping.
 CODE_TOOLS_ALLOW = {
@@ -979,6 +999,7 @@ CODE_TOOLS_ALLOW = {
     "Write",
     "Grep",
     "Glob",
+    "Skill",
 }
 
 def looks_like_code_session(body):
