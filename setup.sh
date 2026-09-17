@@ -140,6 +140,16 @@ LAUNCH
 
 chmod +x "$LAUNCHER"
 
+# ── "keep going": continue a Claude conversation on a free or local model ──
+mkdir -p "$HOME/.local/bin"
+ln -sf "$SCRIPT_DIR/bin/keepgoing" "$HOME/.local/bin/keepgoing"
+ZSHRC="$HOME/.zshrc"
+KEEP_LINE="source \"$SCRIPT_DIR/scripts/keepgoing-shell.sh\""
+if ! grep -qF "$KEEP_LINE" "$ZSHRC" 2>/dev/null; then
+  printf '\n# Claude Code Local: type "keep going" when Claude runs out of credits\n%s\n' "$KEEP_LINE" >> "$ZSHRC"
+fi
+echo "keep going installed → ~/.local/bin/keepgoing (open a new terminal to use it)"
+
 # ── Optional: iMessage / Screen-to-Phone tools ────────────────
 echo ""
 echo "Checking for optional iMessage phone-control tools..."

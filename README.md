@@ -1,256 +1,129 @@
+<div align="center">
+
+# 🧠⚡ Claude Code Local
+
+### Claude Code, running on your own Mac. No cloud. No API key. No waiting.
+
+**Your Mac's chip runs the AI · Claude Code works exactly like it always does · nothing leaves your computer**
+
+<a href="https://github.com/nicedreamzapp/claude-code-local/stargazers"><img src="https://img.shields.io/github/stars/nicedreamzapp/claude-code-local?style=for-the-badge&logo=github&color=f5c542&labelColor=1f2328" alt="GitHub stars"></a>
+<a href="#-what-you-need"><img src="https://img.shields.io/badge/Mac-Apple_Silicon-111111?style=for-the-badge&logo=apple&logoColor=white" alt="Apple Silicon"></a>
+<a href="#-your-code-stays-home"><img src="https://img.shields.io/badge/🔒_Privacy-100%25_Local-success?style=for-the-badge" alt="100% Local"></a>
+<a href="#-use-it-with-trinidad-head"><img src="https://img.shields.io/badge/🌊_Best_with-Trinidad_Head-a855f7?style=for-the-badge" alt="Best with Trinidad Head"></a>
+<a href="LICENSE"><img src="https://img.shields.io/badge/📜_License-MIT-yellow?style=for-the-badge" alt="MIT"></a>
+<a href="https://discord.gg/ZdSqgAxUW"><img src="https://img.shields.io/discord/1497121921580404818?label=Discord&logo=discord&color=5865F2&style=for-the-badge" alt="Discord"></a>
+
+</div>
+
 <p align="center">
-  <h1 align="center">🧠⚡ Claude Code Local</h1>
-  <p align="center">
-    <strong>Run Claude Code 100% on-device with local AI on Apple Silicon.<br>No cloud, no API key, no proxy — an MLX-native server that speaks the Anthropic API.<br>🥊 Pick your fighter: Hermes 4 14B · Gemma 4 31B · Muse-Glimmer 30B · Qwen 3.8 27B bf16 · Llama 3.3 70B · Qwen 3.5 122B · DeepSeek V4 Flash (1M context via <a href="#-deepseek-v4-flash-via-ds4"><code>ds4</code></a>).</strong>
-  </p>
-  <p align="center">
-    <a href="https://github.com/nicedreamzapp/claude-code-local/stargazers"><img src="https://img.shields.io/github/stars/nicedreamzapp/claude-code-local?style=for-the-badge&logo=github&color=f5c542&labelColor=1f2328" alt="GitHub stars"></a>
-    <a href="https://github.com/nicedreamzapp/claude-code-local/network/members"><img src="https://img.shields.io/github/forks/nicedreamzapp/claude-code-local?style=for-the-badge&logo=github&color=4c9a2a&labelColor=1f2328" alt="GitHub forks"></a>
-    <a href="#-the-lineup--pick-your-fighter"><img src="https://img.shields.io/badge/🥊_Lineup-7_Models-red?style=for-the-badge" alt="7 Models"></a>
-    <a href="https://nicedreamzapp.github.io/agent12/"><img src="https://img.shields.io/badge/🏆_Agent--12-Local_Agent_Leaderboard-gold?style=for-the-badge" alt="Agent-12 leaderboard"></a>
-    <a href="#-benchmarks"><img src="https://img.shields.io/badge/⚡_Qwen_3.5-65_tok%2Fs-brightgreen?style=for-the-badge" alt="Qwen 3.5 speed"></a>
-    <a href="#-benchmarks"><img src="https://img.shields.io/badge/🚀_Claude_Code_Task-17.6s-blue?style=for-the-badge" alt="Claude Code task time"></a>
-    <a href="#-privacy--how-the-data-flows"><img src="https://img.shields.io/badge/🔒_Privacy-100%25_Local-success?style=for-the-badge" alt="100% Local"></a>
-    <a href="docs/VOICE-MODE.md"><img src="https://img.shields.io/badge/🎤_Voice-Hands_Free-orange?style=for-the-badge" alt="Hands-Free Voice"></a>
-    <a href="LICENSE"><img src="https://img.shields.io/badge/📜_License-MIT-yellow?style=for-the-badge" alt="MIT"></a>
-    <a href="https://discord.gg/ZdSqgAxUW"><img src="https://img.shields.io/discord/1497121921580404818?label=NiceDreamzApps&logo=discord&color=5865F2&style=for-the-badge" alt="Join the NiceDreamzApps Discord"></a>
-  </p>
-  <p align="center">
-    <a href="#-hit-your-claude-usage-limit">🛑 Usage Limit</a> ·
-    <a href="#-what-is-this">🤔 What Is This</a> ·
-    <a href="#-quick-start-one-command">🚀 Quick Start</a> ·
-    <a href="#-which-model-should-i-run--the-agent-12-leaderboard">🏆 Leaderboard</a> ·
-    <a href="#-the-lineup--pick-your-fighter">🥊 Lineup</a> ·
-    <a href="#-the-modes">🎮 Modes</a> ·
-    <a href="#-privacy--how-the-data-flows">🔒 Privacy</a> ·
-    <a href="#-benchmarks">📊 Benchmarks</a> ·
-    <a href="docs/VOICE-MODE.md">🎤 Voice</a> ·
-    <a href="docs/BROWSER-AGENT.md">🌐 Browser</a> ·
-    <a href="docs/PHONE-CONTROL.md">📱 Phone</a> ·
-    <a href="docs/MCP-SERVERS.md">🔌 MCP</a> ·
-    <a href="#-whats-next">🛣️ Roadmap</a>
-  </p>
+  <img src="assets/demo.gif" width="860" alt="Claude Code editing a file with Gemma 4 31B running locally on a Mac, no cloud">
+  <br><em>A real session, unedited. Claude Code reads and edits the file, and the AI answering is running on the laptop.</em>
 </p>
 
 ---
 
 ## 🛑 Hit your Claude usage limit?
 
-If Claude Code just told you **"you've reached your usage limit"** and gave you a reset time hours away, that's what this is for. You keep working — same Claude Code, same terminal, same project — except the model answering is running on your own Mac.
+Claude Code just said **"you've reached your usage limit"** and the reset is hours away? Keep working:
+same Claude Code, same project, but the AI answering runs on your own Mac.
 
 ```bash
 curl -fsSL https://raw.githubusercontent.com/nicedreamzapp/claude-code-local/main/install.sh | bash
 ```
 
-No API key. No second subscription. No waiting until 3pm. It works on a **16 GB MacBook** and gets better the more RAM you have — [see what runs on your Mac](#-what-you-need).
-
-<p align="center">
-  <img src="assets/demo.gif" width="900" alt="Claude Code editing a file with Gemma 4 31B running locally on a Mac, no cloud">
-</p>
-
-<p align="center">
-  <em>Real session, unedited. Claude Code reads and edits the file — the model answering is Gemma 4 31B on the laptop.</em>
-</p>
+That's it. It even works on a **16 GB MacBook**, and gets better the more memory your Mac has.
 
 ---
 
-## 🤔 What Is This?
+## 🌊 Use it with Trinidad Head
 
-Your Mac has a powerful GPU built right into the chip. This project uses that GPU to run **massive AI models — the same kind that power ChatGPT and Claude — entirely on your computer**, and plugs them into Claude Code so the whole coding experience works offline.
+**Trinidad Head is the recommended terminal for running local models, on Mac and PC.** It's built
+from scratch by the same person who made this project, and it makes long local-AI sessions nicer:
 
-No internet, no subscription, nobody sees your code — and it's the full Claude Code experience: edit files, manage projects, drive your browser, or run a hands-free voice session.
-
-**The trick:** Claude Code speaks the **Anthropic API**. Local model servers speak the **OpenAI API**. So everyone bolts a translation proxy in between — and the proxy is slow and fragile. This server speaks Anthropic natively. One process, zero translations:
-
-| 🐌 What everyone else does | 🚀 What we did |
-|---|---|
-| Claude Code → **Proxy** → Ollama → Model | Claude Code → **Our Server** → Model |
-| 3 processes, 2 API translations | **1 process, 0 translations** |
-| 133 seconds per task | **17.6 seconds per task** |
-
-> 🎯 That one change — **eliminating the proxy** — made it **7.5× faster**.
-
----
-
-## 🎬 Watch It Run — AirGap AI
-
-**A real NDA. Llama 3.3 70B. Wi-Fi physically OFF. `lsof` running live.** Watch a 70-billion-parameter model audit a confidential legal document, on-device, with the receipts on screen.
+- 🪟 **Glass windows with a soft neon glow**, rounded and easy on the eyes
+- 🌈 **A different color for every window**, so you can tell your local-model windows apart at a glance
+- 🔠 **Bigger, easy-to-read text**
+- 💬 **Your own prompts stand out** in a soft bubble, so you can find what you asked when you scroll back
+- 🖱️ **Copy and paste just work**, even under Claude Code's calm focus view
 
 <p align="center">
-  <a href="https://www.youtube.com/watch?v=V_J1LpNGwmY">
-    <img src="https://img.youtube.com/vi/V_J1LpNGwmY/maxresdefault.jpg" width="720" alt="AirGap AI — Wi-Fi OFF NDA Demo">
-  </a>
+  <img src="https://raw.githubusercontent.com/nicedreamzapp/trinidad-head/main/docs/images/colors.jpg" width="860" alt="Three Trinidad Head windows, each glowing a different color">
 </p>
+
+👉 **[Get Trinidad Head](https://github.com/nicedreamzapp/trinidad-head)** · [project page](https://nicedreamzwholesale.com/software/trinidad-head/)
+
+---
+
+## 🔋 Out of Claude credits? Keep going.
+
+When Claude runs out, type **`exit`** in Claude Code, then **`keep going`**. You get a short menu,
+and **the same conversation carries on** with whichever model you pick:
+
+- ☁️ **Free cloud models** from OpenRouter (add a free key, see below)
+- 💻 **Models on your Mac** from the lineup below, sized to fit your memory
 
 <p align="center">
-  <em>AirGap is this whole build running as one private workstation — a capability, not a product. Everything you need is in this repo. If your firm needs one built, <a href="https://nicedreamzwholesale.com/airgap/">here's what it looks like</a>.</em>
+  <img src="https://raw.githubusercontent.com/nicedreamzapp/trinidad-head/main/docs/images/keep-going.jpg" width="860" alt="The keep going menu: free cloud and local models to continue a Claude conversation">
 </p>
 
-**More local-AI demos on the channel:**
-
-| Video | What happens |
-|---|---|
-| [🌌 The Rematch](https://www.youtube.com/watch?v=03KVQmEx13Q) | 4 AI engines build northern lights, 3 fully local — the local challenger painted the best aurora |
-| [🏁 Hexagon Shootout](https://www.youtube.com/watch?v=2KeTDDodE0A) | Gemma 31B vs Llama 70B vs cloud Claude, same physics prompt, live counters — 2 of 3 with zero cloud calls |
-| [🐳 DeepSeek Three-Way](https://youtu.be/7l8-s8xkpms) | DeepSeek V4 Flash local beats cloud Claude on wall-clock, same MacBook |
-| [🎤 NarrateClaude](https://www.youtube.com/watch?v=4ETqEjjopUk) | Speak to Claude Code, hear replies in a cloned voice — 100% on-device |
-| [🏠 Mac mini as home AI](https://www.youtube.com/watch?v=PLbV4QtFmFY) | Chat with the Mac mini at home from any browser on any phone |
-
----
-
-## 🏆 Which model should I run? — The Agent-12 Leaderboard
-
-The question every issue here eventually asks. So we measure it. **[Agent-12](https://nicedreamzapp.github.io/agent12/)** runs each local model through real agent tasks in a sandboxed working directory, judged by what ends up on the filesystem, never by the model's prose. Temperature 0, fixed caps, fresh sandbox per task, one variable moved per comparison. Tasks, judges, runner and the judge-validation gate are all open at [github.com/nicedreamzapp/agent12](https://github.com/nicedreamzapp/agent12).
-
-| Model | Easy (12) | time | Hard (8) | time | tok/s |
-|---|:---:|:---:|:---:|:---:|:---:|
-| 🏆 **Qwen3.6-35B-A3B** (MLX 8-bit) | **12/12** | 64s | **8/8** | 125s | 46 |
-| Qwen3-Coder-30B-A3B (MLX 8-bit) | 12/12 | 43s | 7/8 | 392s | 84 |
-| Gemma 4 31B (MLX 4-bit) | 11/12 | 92s | 8/8 | 348s | 26 |
-| DeepSeek V4 Flash (2-bit, 0731 imatrix, `ds4`) | 12/12 | 203s | 8/8 | 551s | 8.4 |
-| Qwen3.8-27B (MLX 8-bit, dense) | 12/12 | 351s | 7/8 | 1156s | — |
-| *Claude Sonnet 5 (cloud, reference only)* | 12/12 | 122s | 8/8 | 131s | — |
-
-**Where these numbers come from:** every row was measured inside Agent-12's own lean reference harness (Anvil, a ~550-token native terminal engine with per-model tool-call dialects) — **not inside Claude Code itself.** Claude Code as installed sends the model far more per turn (with MCP servers connected, tens of thousands of tokens of tool definitions on the first turn), and the same model scores and times differently there. A contributor measured that gap on the same model and engine in [agent12 #1](https://github.com/nicedreamzapp/agent12/issues/1): 8/8 hard in 105s under Anvil vs 6/8 in 310s inside Claude Code as installed. The harness is the variable; the board holds it fixed so models can be compared against each other.
-
-All local rows: Apple M5 Max, 128 GB. The headline: the local champion clears the same hard suite as cloud Claude, and does it **faster on wall-clock** (125s vs 131s) because there is no network in the loop. Read the launch story: [*I took down six of my own benchmark videos, then built the leaderboard*](https://nicedreamzwholesale.com/2026/08/10/i-took-down-six-of-my-own-benchmark-videos-then-i-built-the-local-agent-leaderboard/) · [71-second video](https://youtu.be/O0yWqc46tGM).
-
-Qwen 3.8 reaches 8/8 hard when given an 8000-token budget, but at 16.9× Qwen3.6's wall-clock ([full writeup](https://github.com/nicedreamzapp/agent12/blob/main/writeups/qwen38_vs_qwen36.md)). Muse-Glimmer 30B and Nemotron Omni are listed on the board in a separate **vendor-reported** section with Meta's and NVIDIA's own published numbers, credited and linked, until they get a real Agent-12 run.
-
----
-
-## 🥊 The Lineup — Pick Your Fighter
-
-We started with one model. Now we ship a **roster** — and it's a **living lineup**: we're builders, this repo is always testing and updating, and new fighters get added the day they drop and benchmarked as we run them. Same MLX server, same Anthropic API — swap one env var and you swap the brain. Plus the `ds4` engine for DeepSeek V4 Flash via its own native Metal runtime.
-
-| | 🟡 **Hermes 4 14B** | 🟢 **Gemma 4 31B** | ✨ **Muse-Glimmer 30B** | 🟣 **Qwen 3.8 27B** 🆕 | 🟠 **Llama 3.3 70B** | 🔵 **Qwen 3.5 122B** | 🐳 **DeepSeek V4 Flash** ⭐ |
-|---|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
-| Nickname | **The One That Runs On Your Laptop** | The Quick One | The Fresh Agent | **The Full-Precision Sprinter** | The Wise One | The Beast | The 1M-Context Whale |
-| Build | 4-bit abliterated | 4-bit IT abliterated | 8-bit abliterated (in-house) | **bf16, nothing quantized** + DFlash 2 drafter | 8-bit abliterated | 4-bit MoE (A10B) | 2-bit asymmetric (ds4 GGUF) |
-| Speed | not benchmarked yet | ~15 tok/s | **~18 tok/s** | **36.5 tok/s** (9.7 without the drafter) | ~7 tok/s | **65 tok/s** 🚀 | ~32 tok/s |
-| Params | 14 B dense (Qwen3 base) | 31 B dense | ~30 B | 27 B dense | 71 B dense | 122 B / 10 B active | **284 B / 37 B active** |
-| Context | 40 K | 128 K | 128 K | **262 K** | 128 K | 256 K | **1 M tokens** |
-| RAM | ~8 GB | ~18 GB | ~30 GB | ~59 GB (55 weights + 4 drafter) | ~70 GB | ~75 GB | ~81 GB |
-| Min RAM to run | **16 GB** | 32 GB | 48 GB | 96 GB | 96 GB | 96 GB | 128 GB |
-| Best at | Everyday edits on a stock MacBook | Daily coding | Vision + agentic tool use, uncensored | Full-precision coding + vision at quantized speed | Hardest reasoning, full precision | Max throughput, active sparsity | Long context, agentic loops |
-| Engine | MLX Native | MLX Native | MLX Native | [`mlx-dspark`](https://github.com/ARahim3/mlx-dspark) (MLX + DFlash 2) | MLX Native | MLX Native | [`antirez/ds4`](https://github.com/antirez/ds4) |
-| Launcher | `Claude Local.command` | `Gemma 4 Code.command` | *coming* | *coming* | `Llama 70B.command` | `Claude Local.command` | `DeepSeek V4 Flash.app` |
-
-> 🟣 **Qwen 3.8 27B just landed (Aug 20, 2026) — and we run it at full bf16.** Alibaba's new 27B dense model (Apache 2.0, native image + video input, 262K context) is the first small model we'd put next to the cloud ones, so we refused to quantize it. The trick that makes bf16 livable is **[DFlash 2](https://inco.ai/blog/dflash2/)**, a speculative-decoding drafter from Inco AI / Z Lab: a 2B draft model proposes a block of tokens, the 27B verifies the block in one pass, and the output is **byte-identical** to plain decoding. Measured on our M5 Max 128 GB, same prompt, 600 tokens, greedy: **9.7 tok/s plain → 36.5 tok/s with DFlash 2** (3.8×, 4.4 accepted tokens per round). Weights: [`mlx-community/Qwen3.8-27B-bf16`](https://huggingface.co/mlx-community/Qwen3.8-27B-bf16) (54.7 GB) + drafter [`incoai/Qwen3.8-27B-DFlash2`](https://huggingface.co/incoai/Qwen3.8-27B-DFlash2) (3.8 GB), served by [`mlx-dspark`](https://github.com/ARahim3/mlx-dspark) (`pip install mlx-dspark`, OpenAI-compatible API). Two tips that survived a night of testing: keep the draft block at 5 on Metal (4/6/7/10 were all slower for us and for others), and drop the community **[Sharp chat template](https://huggingface.co/peculiar-ragdoll/Qwen-Sharp-Chat-Templates)** into the model folder — it fixes the stock template's empty-think aborts, defaults reasoning to `medium` instead of `xhigh`, and makes the model lead with the answer. Vision works through `mlx-vlm` (no drafter on that path yet). Claude Code launcher is next on the list.
->
-> 🧪 **Muse-Glimmer just landed (Aug 2026)** — Meta's new agentic 30B, [abliterated in-house](#-our-own-mlx-abliterated-uploads) (our first self-abliteration). Decode speed is measured — **~18 tok/s** on an M-series Max, 8-bit (a touch quicker than Gemma 4 31B).
->
-> 👁️ **Now with vision** via the [`-MM-bf16`](https://huggingface.co/divinetribe/Muse-Glimmer-30B-Abliterated-MM-bf16) build — **[watch it read a chart, a neon sign and a blurred car badge](https://www.youtube.com/watch?v=5fs_FfkCaDA)**. Details in [our uploads](#-our-own-mlx-abliterated-uploads).
-
-> 💻 **Got a 16 GB MacBook Air?** Start with Hermes. `setup.sh` picks it for you automatically — you don't need 96 GB of RAM to use this.
-
-> 💡 **Fun fact:** Qwen wins raw speed because it's an MoE — only 10B of 122B params activate per token. DeepSeek V4 Flash is even bigger (284B) but only ~37B active per token, *and* it ships with on-disk KV cache so a 25k-token Claude Code system prompt prefills exactly once, ever.
-
-### 🐳 DeepSeek V4 Flash via `ds4`
-
-We tested it the day Antirez (the Redis guy) shipped `ds4`. **Local DeepSeek beat cloud Claude on wall-clock time** on the same MacBook, same prompt — [watch the three-way](https://youtu.be/7l8-s8xkpms).
-
-| | |
-|---|---|
-| 🧠 **Engine** | [`antirez/ds4`](https://github.com/antirez/ds4) — pure C + Metal kernels, ~few thousand lines |
-| 🤗 **Weights** | [`antirez/deepseek-v4-gguf`](https://huggingface.co/antirez/deepseek-v4-gguf) (q2: 81 GB, q4: 153 GB) |
-| 📦 **Server wrapper** | `~/.local/bin/ds4-server-up` (boots on demand) |
-| 🚀 **Claude Code wrapper** | `~/.local/bin/claude-ds4` (drop-in replacement for `claude`) |
-| 📏 **Context** | 1 M tokens; 200 K is sane for most agent runs |
-| 💾 **Disk KV cache** | Persists across restarts — first prefill is the only one that ever happens |
-
-### ⭐ Our Own MLX Abliterated Uploads
-
-The models in this lineup aren't from generic mirrors — **we package and upload our own abliterated MLX builds** to HuggingFace so anyone running this repo can pull them with one command. Browse the full set at [huggingface.co/divinetribe](https://huggingface.co/divinetribe).
+`setup.sh` installs it for you. To add it by hand, or to turn on the free cloud models:
 
 ```bash
-# Llama 3.3 70B — full-precision feel
-MLX_MODEL=divinetribe/Llama-3.3-70B-Instruct-abliterated-8bit-mlx \
-  bash scripts/start-mlx-server.sh
-
-# Gemma 4 31B — fast daily driver
-MLX_MODEL=divinetribe/gemma-4-31b-it-abliterated-4bit-mlx \
-  bash scripts/start-mlx-server.sh
-
-# Hermes 4 14B — sweet spot for 16/32 GB Macs
-MLX_MODEL=divinetribe/Hermes-4-14B-abliterated-4bit-mlx \
-  bash scripts/start-mlx-server.sh
-
-# Muse-Glimmer 30B — Meta's new agentic model, abliterated in-house
-MLX_MODEL=divinetribe/Muse-Glimmer-30B-Abliterated-8bit \
-  bash scripts/start-mlx-server.sh
+echo 'source "$HOME/claude-code-local/scripts/keepgoing-shell.sh"' >> ~/.zshrc   # the "keep going" command
+mkdir -p ~/.config/claude-code-local
+echo 'OPENROUTER_API_KEY=your-free-key' >> ~/.config/claude-code-local/keepgoing.env   # optional
 ```
 
-Every public model on [huggingface.co/divinetribe](https://huggingface.co/divinetribe), as of Aug 20, 2026. Sizes are the real on-disk totals from the Hub. All are MLX-format; the 👁️ ones take images.
+Want a reminder at the bottom of every Claude window? Point your status line at
+`scripts/statusline-keepgoing.sh`. It says *"💡 Out of Claude credits? Type exit, then keep going to
+carry on with a free or local model."*
 
-**Text models**
-
-| Model | Quant | Disk | Params | Context | Best for |
-|---|---|---|---|---|---|
-| [`Llama-3.3-70B-Instruct-abliterated-8bit-mlx`](https://huggingface.co/divinetribe/Llama-3.3-70B-Instruct-abliterated-8bit-mlx) | 8-bit, g64 | 75.0 GB | 71 B dense | 128 K | Hardest reasoning on 96 GB+ Macs |
-| [`Huihui-Qwen3-Coder-Next-Opus-4.6-Reasoning-Distilled-abliterated-4bit-mlx`](https://huggingface.co/divinetribe/Huihui-Qwen3-Coder-Next-Opus-4.6-Reasoning-Distilled-abliterated-4bit-mlx) | 4-bit | 44.9 GB | Qwen3-Coder-Next MoE | — | Coding agent distilled from Opus 4.6 reasoning traces, 64 GB+ Macs |
-| [`gemma-4-31b-it-abliterated-4bit-mlx`](https://huggingface.co/divinetribe/gemma-4-31b-it-abliterated-4bit-mlx) | 4-bit, g64 | 17.3 GB | 31 B dense | 128 K | Daily coding on a 32 GB+ Mac (the default fighter) |
-| [`Huihui-gemma-4-31B-it-abliterated-4bit-mlx`](https://huggingface.co/divinetribe/Huihui-gemma-4-31B-it-abliterated-4bit-mlx) | 4-bit, g64 | 17.3 GB | 31 B dense | 128 K | Same model, huihui-ai's abliteration instead of null-space's |
-| [`Qwen3.6-27B-abliterated-4bit-mlx`](https://huggingface.co/divinetribe/Qwen3.6-27B-abliterated-4bit-mlx) | 4-bit | 15.2 GB | 27 B dense | 256 K | Qwen 3.6 generation, 32 GB+ Macs |
-| [`gemma-4-12B-it-abliterated-4bit-mlx`](https://huggingface.co/divinetribe/gemma-4-12B-it-abliterated-4bit-mlx) | 4-bit | 11.0 GB | 12 B dense | 128 K | 32 GB Macs |
-| [`gemma-4-12B-it-abliterated-4bit-mlx-text`](https://huggingface.co/divinetribe/gemma-4-12B-it-abliterated-4bit-mlx-text) | 4-bit | 11.0 GB | 12 B dense | 128 K | Same, vision tower stripped — loads in plain `mlx-lm` |
-| [`Hermes-4-14B-abliterated-4bit-mlx`](https://huggingface.co/divinetribe/Hermes-4-14B-abliterated-4bit-mlx) | 4-bit, g64 | 8.3 GB | 14 B dense (Qwen3 base) | 40 K | 16 GB Macs, instruction-following, tool use |
-| [`Huihui-Qwen3-8B-abliterated-v2-4bit-mlx`](https://huggingface.co/divinetribe/Huihui-Qwen3-8B-abliterated-v2-4bit-mlx) | 4-bit | 4.6 GB | 8 B dense | 40 K | 8-16 GB Macs, the smallest thing here that still follows tools |
-
-**Vision + text models** 👁️
-
-| Model | Quant | Disk | Params | Context | Best for |
-|---|---|---|---|---|---|
-| [`Nemotron-3-Nano-Omni-30B-Abliterated-MM-bf16`](https://huggingface.co/divinetribe/Nemotron-3-Nano-Omni-30B-Abliterated-MM-bf16) 👁️🎧 | bf16 | 66.0 GB | 30 B / 3 B active MoE | 128 K | NVIDIA's tri-modal (text + vision + **audio**) Omni, full precision; runs via [`nemotron-omni-mlx`](https://github.com/nicedreamzapp/nemotron-omni-mlx) |
-| [`Nemotron-3-Nano-Omni-30B-Abliterated-MM-8bit`](https://huggingface.co/divinetribe/Nemotron-3-Nano-Omni-30B-Abliterated-MM-8bit) 👁️🎧 | 8-bit | 35.8 GB | 30 B / 3 B active MoE | 128 K | Same, 48 GB+ Macs |
-| [`Nemotron-3-Nano-Omni-30B-Abliterated-MM-4bit`](https://huggingface.co/divinetribe/Nemotron-3-Nano-Omni-30B-Abliterated-MM-4bit) 👁️🎧 | 4-bit | 19.7 GB | 30 B / 3 B active MoE | 128 K | Same, 32 GB Macs |
-| [`Muse-Glimmer-30B-Abliterated-MM-bf16`](https://huggingface.co/divinetribe/Muse-Glimmer-30B-Abliterated-MM-bf16) 👁️ | bf16 | 59.6 GB | ~30 B | 128 K | Meta's agentic 30B with the full vision tower, abliterated in-house; runs via [`mlx-vlm-muse-glimmer`](https://github.com/nicedreamzapp/mlx-vlm-muse-glimmer) |
-| [`Huihui-Qwen3-VL-32B-Instruct-abliterated-4bit-mlx`](https://huggingface.co/divinetribe/Huihui-Qwen3-VL-32B-Instruct-abliterated-4bit-mlx) 👁️ | 4-bit | 19.6 GB | 32 B dense | 256 K | Qwen3-VL vision-language, 32 GB+ Macs |
-
-Also on the Hub: [`yolov8n-oiv7-coreml`](https://huggingface.co/divinetribe/yolov8n-oiv7-coreml), the 601-class CoreML detector behind [RealTimeAICam](https://github.com/nicedreamzapp/RealTimeAICam).
-
-**Abliteration sources:** [huihui-ai](https://huggingface.co/huihui-ai) (Llama, Qwen, one of the Gemma 31Bs), [null-space](https://huggingface.co/null-space) (Gemma 4 31B), [OpenYourMind](https://huggingface.co/OpenYourMind) (Gemma 4 12B) and [Babsie](https://huggingface.co/Babsie) (Hermes). **Muse-Glimmer and Nemotron Omni we abliterated ourselves** — refusal direction removed across every residual-writing layer (layer 26 on Glimmer), on the freshly-released bf16 weights, with the vision (and for Nemotron, audio) towers kept intact. We believe Glimmer-MM was the first abliterated multimodal model running on Apple MLX. MLX conversion + quantization by us. See [what abliteration means](https://huggingface.co/blog/mlabonne/abliteration).
-
-> ⚠️ **Use it responsibly.** "Abliterated" suppresses the model's built-in refusal direction so it doesn't refuse benign-but-edgy requests. It is **not** a general capability upgrade, and you remain bound by each upstream license (Llama 3.3, Gemma, Hermes/Qwen3, Qwen3.6/VL, Muse-Glimmer, Nemotron).
+> 💡 Free cloud models can get busy later in the day. The models on your Mac are always there.
 
 ---
 
-## 🎮 The Modes
+## 🤔 What is this, really?
 
-Four ways to run the lineup. Each one is a double-clickable launcher in `launchers/`.
+Your Mac has a powerful graphics chip built in. This project uses it to run **big AI models right on
+your computer** and plugs them into Claude Code, so the whole coding experience works offline:
+editing files, managing projects, even driving your browser or talking out loud.
 
-| Mode | What it does | Launcher |
-|---|---|---|
-| 🤖 **Code** | Run Claude Code with a local model — same UX, no API key | `Claude Local.command`, `Gemma 4 Code.command`, `Llama 70B.command` |
-| ⚡ **Native Engine** *(new)* | Our own ~900-line agent, model loaded in-process — replies start in ~0.3 s deep into long sessions ([details](#-gen-4--the-native-engine-added-aug-7-2026)) | `Gemma 4 Code (Native Engine).command`, `Qwen 3 Coder (Native Engine).command` |
-| 🌐 **Browser** | Local AI controls real Brave browser via Chrome DevTools | `Browser Agent.command` |
-| 🎤 **Hands-Free Voice** | Speak in, hear replies in your cloned voice — full loop, 100% on-device | `Narrative Gemma.command` + [NarrateClaude](https://github.com/nicedreamzapp/NarrateClaude) |
-| 📱 **Phone** | iMessage in → text/image/video out, via [claude-screen-to-phone](https://github.com/nicedreamzapp/claude-screen-to-phone) | `~/.claude/imessage-*.sh` |
+**The trick:** Claude Code speaks one language (Anthropic's), and local AI servers usually speak
+another (OpenAI's). Most setups put a slow translator in between. This project's server speaks
+Claude Code's language directly, so there's **nothing in the middle**, and that's what makes it fast.
 
----
-
-## 💻 What You Need
-
-| Your Mac | RAM | What `setup.sh` installs for you |
-|----------|-----|-------------------|
-| MacBook Air / base M1-M4 | **16 GB** | 🟡 **Hermes 4 14B** — yes, this works |
-| M1/M2/M3/M4 Pro | 32-48 GB | 🟢 Gemma 4 12B |
-| M2/M3/M4/M5 Max | 64-95 GB | 🟢 **Gemma 4 31B** |
-| M3/M4/M5 Max · Ultra | 96 GB+ | 🟣 Qwen 3.8 27B bf16, 🔵 Qwen 3.5 122B, 🟠 Llama 70B, 🐳 DeepSeek |
-
-Also need:
-- 🐍 **Python 3.12+** (for MLX)
-- 🤖 **Claude Code** (`npm install -g @anthropic-ai/claude-code`)
+```
+📝 You  ──▶  🤖 Claude Code  ──▶  ⚡ this server (on your Mac)  ──▶  🧠 local model  ──▶  🖥️ your Mac's chip
+```
 
 ---
 
-## 🚀 Quick Start (One Command)
+## 💻 What you need
+
+- 🍎 A Mac with **Apple Silicon** (M1 or newer)
+- 🐍 **Python 3.12** (setup installs it for you)
+- 🤖 **Claude Code**: `npm install -g @anthropic-ai/claude-code`
+
+Setup looks at your Mac's memory and picks a model that fits:
+
+| Your Mac's memory | The model you get |
+|---|---|
+| **16 GB** (MacBook Air, base models) | 🟡 Hermes 4 14B — yes, this works |
+| **32–48 GB** (Pro) | 🟢 Gemma 4 12B |
+| **64–95 GB** (Max) | 🟢 Gemma 4 31B |
+| **96 GB and up** (Max, Ultra) | 🔵 Qwen 3.5 122B, plus room for 🟠 Llama 3.3 70B and more |
+
+---
+
+## 🚀 Get started
+
+**One command:**
 
 ```bash
 curl -fsSL https://raw.githubusercontent.com/nicedreamzapp/claude-code-local/main/install.sh | bash
 ```
 
-Or clone it yourself if you'd rather read the script first:
+**Or read the script first:**
 
 ```bash
 git clone https://github.com/nicedreamzapp/claude-code-local
@@ -258,338 +131,152 @@ cd claude-code-local
 bash setup.sh
 ```
 
-`setup.sh` auto-detects your RAM, picks a model from the lineup, downloads it, installs the MLX server, and creates a `Claude Local.command` launcher on your Desktop.
+Setup picks your model, downloads it, installs the server, and puts **`Claude Local.command`** on
+your Desktop. **Double-click it** and you're coding locally. 🎉
 
-**Then double-click `Claude Local.command`.** You're coding locally.
+> 🐛 **Asked to sign in to a Claude account?** Your `claude` is too old. Update it:
+> `npm install -g @anthropic-ai/claude-code`
 
-> 🐛 **If the launcher asks you to sign in to a Claude account:** your `claude` CLI is too old. The launchers pass `--bare` to force local-only API-key auth; older CLIs don't support it. Fix: `npm install -g @anthropic-ai/claude-code`
-
-> 🛠️ **Note for contributors:** `setup.sh` installs the server as a **symlink** at `~/.local/mlx-native-server/server.py` pointing back at this repo's `proxy/server.py`. Edit the file in the repo, restart the server, done — one source of truth, no silent drift.
-
-### Or do it manually
+<details>
+<summary>🛠️ Prefer to do it by hand?</summary>
 
 ```bash
-# 1. Set up the MLX virtualenv
+# 1. Set up the MLX environment
 python3.12 -m venv ~/.local/mlx-server
 ~/.local/mlx-server/bin/pip install mlx-lm
 
-# 2. Pick a fighter and download (one time, ~18-75 GB)
+# 2. Pick a model and download it (one time)
 bash scripts/download-and-import.sh gemma   # or 'llama' or 'qwen'
 
 # 3. Start the server
 MLX_MODEL=divinetribe/gemma-4-31b-it-abliterated-4bit-mlx \
   bash scripts/start-mlx-server.sh
 
-# 4. Launch Claude Code
+# 4. Launch Claude Code against it
 ANTHROPIC_BASE_URL=http://localhost:4000 \
 ANTHROPIC_API_KEY=sk-local \
 claude --model claude-sonnet-4-6
 ```
 
----
+`setup.sh` installs the server as a **symlink** back to `proxy/server.py` in this repo, so if you edit
+it, just restart the server.
 
-## 🔧 How It Works
-
-```
-┌──────────────────────────────────────────────────┐
-│              Your MacBook (M-series)             │
-│                                                  │
-│  📝 You type ──> 🤖 Claude Code                  │
-│                      │                           │
-│                      ▼                           │
-│                 ⚡ MLX Server (port 4000)        │
-│                      │                           │
-│                      ▼                           │
-│                 🥊 Local model ──> 🖥️  GPU        │
-│                 (Gemma·Llama·Qwen)               │
-│                      │                           │
-│                      ▼                           │
-│  📝 Answer <─── ✨ Clean response                │
-│                                                  │
-│         🔒 Nothing leaves this box. Ever.        │
-└──────────────────────────────────────────────────┘
-```
-
-The server (`proxy/server.py`) is **one file, ~1000 lines**. It does six things:
-
-1. 📦 **Loads the model** — Apple's MLX framework, native Metal GPU, unified memory. Handles Gemma's `RotatingKVCache` quirk automatically.
-2. 🔌 **Speaks Anthropic API** — Claude Code thinks it's talking to Anthropic's cloud. It's not.
-3. 🔧 **Translates tool use** — Three tool-call formats in and out: Gemma 4 native, Llama 3.3 raw JSON, and HuggingFace `<tool_call>` JSON (Qwen and others). All converted ↔ Anthropic `tool_use` blocks, with garbled-output recovery for small models.
-4. 🧹 **Cleans the output** — A real-time `ThinkingFilter` strips `<think>` blocks token-by-token during generation, then `clean_response` handles stop markers and reasoning preamble.
-5. ⚡ **Reuses prompt caches across requests** — Claude Code's system prompt doesn't get re-prefilled every turn. Huge speedup for short questions.
-6. 🎯 **Code mode** — auto-detects Claude Code coding sessions, swaps the ~10K-token harness prompt for a slim ~150-token one, and strips verbose tool descriptions to name + parameter types. A **28× prompt reduction** that cuts prefill from ~60 s to ~2 s on Gemma 4 31B.
+</details>
 
 ---
 
-## 🔒 Privacy + How the Data Flows
+## 🥊 Pick your AI
 
-This is the part we're proudest of. **Your code never leaves your Mac.** Not for a model call. Not for telemetry. Not for "anonymous analytics". Not ever.
+Same server, same Claude Code. Swap one setting and you swap the brain. Our own ready-to-use builds
+live at **[huggingface.co/divinetribe](https://huggingface.co/divinetribe)**.
 
-```
-   ┌─────────────────────────────────────────────────────────────┐
-   │                    🖥️  YOUR MACBOOK                          │
-   │                                                             │
-   │   📝 Your code ──> 🤖 Claude Code ──> ⚡ MLX Server          │
-   │                     (localhost:4000)      │                 │
-   │                                           ▼                 │
-   │                    🧠 Local model ──> 🖥️  Apple GPU          │
-   │                                                             │
-   │             🚫 ZERO outbound network calls                  │
-   │             🚫 ZERO telemetry                               │
-   │             🚫 ZERO phone-home                              │
-   └─────────────────────────────────────────────────────────────┘
-                   │
-                   ✗  ←  Nothing from our code crosses this line.
-                   │
-   ┌─────────────────────────────────────────────────────────────┐
-   │                    ☁️  THE INTERNET                          │
-   │                  (your code never goes here)                 │
-   └─────────────────────────────────────────────────────────────┘
-```
+| | Model | Nickname | Good for |
+|---|---|---|---|
+| 🟡 | **Hermes 4 14B** | The one that runs on your laptop | Everyday edits on a regular MacBook |
+| 🟢 | **Gemma 4 31B** | The quick one | Daily coding |
+| ✨ | **Muse-Glimmer 30B** | The fresh agent | Tool use, and it can see images |
+| 🟣 | **Qwen 3.8 27B** | The full-precision sprinter | Careful coding plus vision |
+| 🟠 | **Llama 3.3 70B** | The wise one | The hardest thinking |
+| 🔵 | **Qwen 3.5 122B** | The beast | Fastest answers on big Macs |
+| 🐳 | **DeepSeek V4 Flash** | The long-memory whale | Huge projects, via [`ds4`](https://github.com/antirez/ds4) |
 
-### 🔍 What We Audited (Every Component)
+**Which one should I run?** We test them on real agent tasks in the open:
+**[the Agent-12 leaderboard](https://nicedreamzapp.github.io/agent12/)**. Honest note: those scores
+come from Agent-12's own lean test harness (Anvil), **not from inside Claude Code**. Claude Code
+sends the model a lot more per turn, so the same model can score and time differently here.
 
-| Component | Source | Outbound calls | Verdict |
-|-----------|--------|:---:|:---:|
-| **server.py** (ours) | We wrote it line by line | **0** | ✅ Safe |
-| **browser agent** | [nicedreamzapp/browser-agent](https://github.com/nicedreamzapp/browser-agent) — we wrote it | **0** (localhost CDP only) | ✅ Safe |
-| **browser broker** | [nicedreamzapp/browser-broker](https://github.com/nicedreamzapp/browser-broker) — we wrote it | **0** (localhost :9223 only) | ✅ Safe |
-| **mlx-lm** | Apple ML team | **0** | ✅ Safe |
-| **MLX framework** | Apple | **0** | ✅ Safe |
-| **Model weights** | HuggingFace verified repos | **0** at runtime | ✅ Safe |
-| **Claude Code CLI** | Anthropic (closed-source binary) | **0** with our launchers — `lsof`-verified | ✅ Safe |
+Sizes, speeds and memory needs for every model are in the **[full guide](docs/FULL-GUIDE.md)**.
 
-> ✅ **Verified offline.** Claude Code's own binary previously reached out to `api.anthropic.com` on startup for telemetry, statsig feature flags, marketplace auto-install, and the autoupdater. The launchers plug all four channels via documented Anthropic env vars (thanks [@tadrianonet](https://github.com/tadrianonet), PR #32):
->
-> ```bash
-> CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC=1
-> DISABLE_AUTOUPDATER=1
-> CLAUDE_CODE_DISABLE_OFFICIAL_MARKETPLACE_AUTOINSTALL=1
-> CLAUDE_CODE_DISABLE_BACKGROUND_TASKS=1
-> ```
->
-> **Verify it yourself:** run `lsof -p $(pgrep -f claude)` during a session — you'll see only `localhost:4000`. Run `lsof -i -P` while the server is up — nothing leaves your Mac.
-
-> ⚠️ We **[removed LiteLLM](https://x.com/Tahseen_Rahman/status/2035501506242240520)** after supply-chain attack concerns. Every dependency was re-audited from scratch. If a package had unexplained network calls, it didn't ship.
+> ⚠️ **"Abliterated"** models have their built-in refusals turned down. That's not a general upgrade,
+> and each model's own license still applies. Please use them responsibly.
 
 ---
 
-## 📊 Benchmarks
+## 🎮 Ways to use it
 
-### ⚡ Speed Comparison
+Each one is a double-click launcher in [`launchers/`](launchers/).
 
-| Generation | Approach | Speed | Real Claude Code task |
-|---|---|---:|---:|
-| 🐌 Gen 1 | Ollama + Proxy | 30 tok/s | 133 s |
-| 🏃 Gen 2 | llama.cpp + Proxy | 41 tok/s | 133 s |
-| 🚀 Gen 3 | **MLX Native (ours)** | **65 tok/s** | **17.6 s** |
-| ⚡ Gen 4 | **Native engine** — same models, no Claude Code in the loop | first token in **0.36 s** at 4.5k ctx | see below |
+| | Mode | What it does |
+|---|---|---|
+| 🤖 | **Code** | Claude Code with a local model: `Claude Local`, `Gemma 4 Code`, `Llama 70B` |
+| ⚡ | **Native Engine** | Our own lightweight agent for the fastest replies: the `(Native Engine)` launchers |
+| 🌐 | **Browser** | The local AI drives your real browser: `Browser Agent` ([guide](docs/BROWSER-AGENT.md)) |
+| 🎤 | **Hands-free voice** | Talk to it and hear it answer in your own voice: `Narrative Gemma` ([guide](docs/VOICE-MODE.md)) |
+| 📱 | **Phone** | Text your Mac from your iPhone and get answers back ([guide](docs/PHONE-CONTROL.md)) |
 
-### ⚡ Gen 4 — The Native Engine (added Aug 7, 2026)
+---
 
-**New, optional, and additive.** Every Claude Code launcher in this repo
-works exactly as it did yesterday. This is a second way in, for people who
-want the fastest possible turnaround out of the same local models.
+## 🔒 Your code stays home
 
-**Why we built it.** Claude Code is a great harness, but it was designed for
-cloud models: its system prompt is tens of thousands of tokens, and parts of
-the prompt change every turn. A local model pays for that twice — once in
-prefill time, and again because a mutating prompt head defeats KV-cache reuse
-entirely. The native engine (`agent/agent.py`, ~900 lines, zero dependencies
-beyond mlx-lm) flips the design: a ~550-token system prompt that never
-changes, the same tools (Bash/Read/Write/Edit/Glob/Grep), and a KV cache that
-is trimmed to the shared prefix each turn so only the *new* tokens are ever
-prefilled.
+**Your code never leaves your Mac.** No cloud model, no tracking, no "anonymous analytics".
 
-**What we found on the way (useful even if you never run this).** While
-benchmarking we discovered that Gemma-family models hand their sliding-window
-layers a `RotatingKVCache` capped at the window (1024 tokens on Gemma 4). The
-moment a conversation outgrows the window, those caches report untrimmable and
-prompt-cache reuse silently dies — every turn re-prefills the entire
-transcript, exactly in the long sessions where caching matters most. The
-engine swaps in plain `KVCache` on every layer: the sliding-window attention
-*mask* still enforces the window, so outputs are byte-identical (we verified
-with a greedy A/B comparison), but the cache stays trimmable forever.
-`AGENT_ROLLING_KV=1` restores stock behavior if you want the lower memory
-ceiling instead.
-
-**Measured** (Gemma 4 31B 4-bit, 4.5k-token conversation, Apple Silicon):
-
-| | time to first token |
-|---|---:|
-| stock rotating cache (full re-prefill every turn) | 6.5–7.2 s |
-| native engine with the cache fix | **0.36 s** |
-
-Roughly **18× faster turn starts** on long sessions, with generation steady at
-26–28 tok/s. Reproduce it yourself: `python3 bench/agent_bench.py`.
-
-**Terminal UX**: a framed input area with a live context-percentage meter in
-the top rule, a thinking/running spinner so silence never means "hung", and
-readline history across sessions.
-
-**Run it**: double-click a `(Native Engine)` launcher, or:
+The launchers switch off Claude Code's own background internet traffic with Anthropic's documented
+settings (thanks [@tadrianonet](https://github.com/tadrianonet), PR #32):
 
 ```bash
-AGENT_MODEL=lmstudio-community/Qwen3-Coder-30B-A3B-Instruct-MLX-8bit \
-AGENT_DIALECT=native \
-python3 agent/agent.py
+CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC=1
+DISABLE_AUTOUPDATER=1
+CLAUDE_CODE_DISABLE_OFFICIAL_MARKETPLACE_AUTOINSTALL=1
+CLAUDE_CODE_DISABLE_BACKGROUND_TASKS=1
 ```
 
-`AGENT_DIALECT=native` uses the model's own tool-call template (Qwen3-Coder's
-XML with raw-text values); `prompted` teaches the same XML dialect in the
-system prompt for models whose native format re-introduces JSON escaping
-(Gemma). `AGENT_BACKEND=http` points the same agent at any local
-Anthropic-protocol server, including this repo's proxy.
+**Check it yourself:** during a session, `lsof -p $(pgrep -f claude)` shows only `localhost:4000`.
 
-This builds directly on the prompt-cache trim work contributed in #46 — that
-fix is what made the deeper rotating-cache problem visible. Thank you.
-
-### ☁️ vs Cloud APIs
-
-| | 🖥️ **Our Local Setup** | ☁️ Claude Sonnet | ☁️ Claude Opus |
-|---|:---:|:---:|:---:|
-| Speed | 65 tok/s | ~80 tok/s | ~40 tok/s |
-| Monthly cost | **$0** 🎉 | $20-100+ | $20-100+ |
-| Privacy | **100% local** 🔒 | Cloud | Cloud |
-| Works offline | **Yes** ✈️ | No | No |
-
-> Qwen 3.5 numbers measured on an M5 Max 128 GB — full runs, including Qwen 3.8 at bf16, in [BENCHMARKS.md](docs/BENCHMARKS.md).
+> 🧹 We **removed LiteLLM** after supply-chain concerns and re-checked every dependency. Anything
+> with unexplained network calls didn't ship. The full audit is in the [full guide](docs/FULL-GUIDE.md).
+>
+> ☁️ The one exception is your own choice: picking a **free cloud** model in `keep going` sends that
+> conversation to OpenRouter.
 
 ---
 
-## 🔧 Tool-Call Reliability
-
-Local models don't format tool calls perfectly. They *want* to call a tool but mix XML and JSON syntax — Claude Code sees no valid tool call, re-prompts, and the model garbles it the same way again. The result: **infinite loops where the AI says "let me do that" but never does anything.**
-
-We fixed this with 4 changes to `server.py`:
-
-| Change | What | Why |
-|--------|------|-----|
-| **KV Cache** | 4-bit → 8-bit, quantization starts at token 1024 | Model retains conversation context |
-| **Temperature** | 0.7 → 0.2 | Less randomness = more consistent tool formatting |
-| **Garbled Recovery** | `recover_garbled_tool_json()` | Catches XML-in-JSON hybrids, infers tool names from parameter keys |
-| **Retry Logic** | Up to 2 retries when tool intent is detected but parsing fails | Re-prompts with explicit formatting instructions |
-
-🧪 **Results: 98/98 tests passed across 7 consecutive runs. Zero failures.** The multi-step scenario that used to trigger infinite loops — create 12 month folders, delete all but September, verify — now passes every time. Run it yourself:
-
-```bash
-python3 scripts/test_mlx_server.py
-```
-
-### ⚙️ Tuning
-
-| Variable | Default | What It Does |
-|----------|---------|-------------|
-| `MLX_MODEL` | `divinetribe/gemma-4-31b-it-abliterated-4bit-mlx` | Pick which fighter to load |
-| `MLX_KV_BITS` | `8` | KV cache quantization bits (4 saves memory, 8 improves coherence). Known: `4` can drop ~1 in 14 tool calls with empty arguments, and it gets noisier when prompt-cache reuse is on (see [#42](https://github.com/nicedreamzapp/claude-code-local/issues/42)). Default `8` is unaffected; use `4` only when you need the memory. |
-| `MLX_KV_QUANT_START` | `1024` | Token position where KV quantization begins |
-| `MLX_TOOL_RETRIES` | `2` | Max retries when a garbled tool call is detected |
-| `MLX_MAX_TOKENS` | `8192` | Max output tokens per response |
-| `MLX_SUPPRESS_THINKING` | `1` | Skip the model's reasoning chain (~1 min/request saved). Set `0` to let it think. |
-| `MLX_BROWSER_MODE` | `0` | Optimize for chrome-devtools MCP sessions — keeps only the 9 essential browser tools (~99% fewer tokens) |
-
----
-
-## 📚 More
-
-Everything above gets you running. These live in [`docs/`](docs/) so this page stays short:
+## 📚 Want the details?
 
 | | |
 |---|---|
-| 🎤 [Hands-Free Voice Mode](docs/VOICE-MODE.md) | Talk to Claude Code, hear it answer in a cloned voice |
-| 🌐 [Browser Agent](docs/BROWSER-AGENT.md) | Let the local model drive your real browser |
-| 📱 [Control From Your Phone](docs/PHONE-CONTROL.md) | Run a session on your Mac from anywhere |
-| 🔌 [MCP Servers](docs/MCP-SERVERS.md) | Claude Code's whole plugin ecosystem, 100% local |
-| 📁 [What's In This Repo](docs/REPO-LAYOUT.md) | File-by-file tour |
-| 📊 [Benchmarks](docs/BENCHMARKS.md) · 🔧 [Tool-Call Reliability](docs/TOOL-CALL-RELIABILITY.md) | The numbers and how they were measured |
-| 📱 [Apps From The Same Workshop](docs/OTHER-APPS.md) · 🙏 [Credits](docs/CREDITS.md) | Everything else |
+| 📖 **[Full technical guide](docs/FULL-GUIDE.md)** | Every model table, benchmark, tuning setting and design note |
+| 📊 [Benchmarks](docs/BENCHMARKS.md) · 🔧 [Tool-call reliability](docs/TOOL-CALL-RELIABILITY.md) | The numbers and how they were measured |
+| 🎤 [Voice mode](docs/VOICE-MODE.md) · 🌐 [Browser agent](docs/BROWSER-AGENT.md) · 📱 [Phone control](docs/PHONE-CONTROL.md) · 🔌 [MCP servers](docs/MCP-SERVERS.md) | Everything the launchers can do |
+| 📁 [What's in this repo](docs/REPO-LAYOUT.md) · 🙏 [Credits](docs/CREDITS.md) | The tour and the thank-yous |
 
 ---
 
-## 🧩 The Local-First Stack
+## 🧩 The local-first family
 
-`claude-code-local` is the **brain**. It pairs with sibling repos — each stands alone, together they take Claude Code off the keyboard and off the screen:
+Each one works on its own. Together they take Claude Code off the keyboard and off the screen.
 
-| Repo | Role | What it does |
+| | Project | What it does |
 |---|---|---|
-| 🤖 **claude-code-local** | Brain *(you are here)* | MLX Anthropic server · launcher lineup · tool-call translation |
-| 🎤 [NarrateClaude](https://github.com/nicedreamzapp/NarrateClaude) | Ears + Mouth | Talk to Claude, hear replies in your cloned voice — both directions on-device |
-| 🌐 [browser-agent](https://github.com/nicedreamzapp/browser-agent) | Hands | Drives real Brave via CDP — iframes, Shadow DOM, ProseMirror |
-| 🚦 [browser-broker](https://github.com/nicedreamzapp/browser-broker) | Traffic cop | Leases each agent its own hidden tab in your real browser — many agents, nobody fights, nobody grabs the tab you're reading |
-| 📱 [claude-screen-to-phone](https://github.com/nicedreamzapp/claude-screen-to-phone) | Remote | iPhone → Claude Code over iMessage; text/screenshots/videos back |
-| 🛟 [claude-failover](https://github.com/nicedreamzapp/claude-failover) | Backstop | Keep cloud Claude primary, flip one command to local when limits pinch or Anthropic is down |
+| 🌊 | **[Trinidad Head](https://github.com/nicedreamzapp/trinidad-head)** | The terminal to run it all in, on Mac and PC |
+| 🎤 | [NarrateClaude](https://github.com/nicedreamzapp/NarrateClaude) | Talk to Claude and hear it answer in your cloned voice |
+| 🌐 | [browser-agent](https://github.com/nicedreamzapp/browser-agent) | Drives your real browser |
+| 🚦 | [browser-broker](https://github.com/nicedreamzapp/browser-broker) | Gives each AI agent its own browser tab so nobody fights |
+| 📱 | [claude-screen-to-phone](https://github.com/nicedreamzapp/claude-screen-to-phone) | Control Claude Code from your iPhone |
+| 🛟 | [claude-failover](https://github.com/nicedreamzapp/claude-failover) | Keep cloud Claude first, flip to local with one command |
 
 ---
 
-## 🔬 More Local-AI Work
+## 🤝 Help make it better
 
-Not part of this stack — separate projects, same rule: **the model runs on your machine, not on somebody's server.**
+Ideas, bug reports, a launcher for a model we don't run: open an
+[issue](https://github.com/nicedreamzapp/claude-code-local/issues/new) or a PR, every one gets read.
+We especially love hearing from people on older or smaller Macs about which models really fit.
 
-| Repo | What it is |
-|---|---|
-| 🧠 [nemotron-omni-mlx](https://github.com/nicedreamzapp/nemotron-omni-mlx) | NVIDIA's tri-modal **Nemotron Omni** — text, vision *and* audio — in pure MLX. The vision and audio towers had no Apple Silicon runtime, so I wrote one. **23/23 parity tests** against NVIDIA's PyTorch reference. 67 tok/s with an image, wifi off. |
-| 🎬 [story-forge](https://github.com/nicedreamzapp/story-forge) | A script goes in, a finished film comes out — stills, motion, voices, music, grade and sound, start to finish on one laptop. Flux · LTX-2 · Piper · ACE-Step · ffmpeg. |
-| 🎙️ [song-forge](https://github.com/nicedreamzapp/song-forge) | Describe a song, get a finished original in any of 19 languages. ACE-Step + Gemma + seed-vc voice swap, rendered locally, never stored. |
-| 👁️ [VisionBuilder](https://github.com/nicedreamzapp/VisionBuilder) | Label photos and train your own on-device vision model straight from the camera roll. The dataset never leaves the phone. |
-| 🗓️ [Family-Planner](https://github.com/nicedreamzapp/Family-Planner) | Self-hosted family command center for a spare iPad — voice control, OCR document scanning, meal planning. No cloud, no subscription. |
-
-📱 There are four apps on the App Store and Google Play too — [see them here](docs/OTHER-APPS.md).
+**Thank you, contributors:** [@0xshugo](https://github.com/0xshugo) ·
+[@asdmoment](https://github.com/asdmoment) · [@kulveersingh](https://github.com/kulveersingh) ·
+[@tripathiprateek](https://github.com/tripathiprateek) · [@tadrianonet](https://github.com/tadrianonet) ·
+[@kevbarns](https://github.com/kevbarns) · [@KaoCSC](https://github.com/KaoCSC). What each of them fixed is in
+the [full guide](docs/FULL-GUIDE.md#-credits).
 
 ---
 
-## 🛣️ What's Next
+<div align="center">
 
-We ship fast and in public. If any of these excite you, hit **Watch** to get the release ping.
+Built by **[Matt Macosko](https://x.com/NiceDreamzApps)** in Arcata, California: one person, no team, no investors.
+**Open to work** on local AI and Apple Silicon: matt@ineedhemp.com
 
-- 🟣 **Qwen 3.8 27B launcher** — wire the bf16 + DFlash 2 server into `Claude Local.command` and the tool-call translator (today it's served by `mlx-dspark` on its own port)
-- 🟡 **Full Qwen 3.5 122B benchmark suite** — reliability, tool-call pass rate, long-context behavior vs Gemma
-- 🟡 **Fully-local Whisper fallback** — alternative to the Apple `SFSpeechRecognizer` path for older Macs and non-English voices
-- 🟡 **One-click DMG installer** — no terminal needed
-- 🟡 **`MLX_MODEL=<hf-url>`** — point at any HuggingFace repo and auto-register a new fighter
-- 🟡 **More fighters** — open to PRs adding launchers for DeepSeek, Mistral, Phi, anything MLX-compatible
+[Nice Dreamz software](https://nicedreamzwholesale.com/software/) · [YouTube demos](https://www.youtube.com/@nicedreamzapps) · [Discord](https://discord.gg/ZdSqgAxUW)
 
-> 💡 Want something that's not on this list? [**Open an issue →**](https://github.com/nicedreamzapp/claude-code-local/issues/new) Every serious request gets read and usually replied to within 24h.
+📜 **MIT License**, use it however you want. ⭐ **Star the repo if it helped you!**
 
-## 🤝 Contributing
-
-Ideas, bug reports, a new launcher for a model I don't run, a better code-mode prompt — open an issue or a PR, I read them all. Especially interested in: folks on older Apple Silicon (M1/M2, 16–36 GB) who know which models actually fit; anyone stress-testing the voice loop on different hardware or accents; TTS recipes beyond Pocket TTS (Piper, MLX-TTS, Kyutai Moshi); and edge cases I'll never hit on an M5 Max with 128 GB.
-
----
-
-## 🙏 Credits
-
-### 🧑‍🔧 Contributors
-
-Every one of these landed on hardware I don't own, on a bug I hadn't hit. Thank you.
-
-| Who | What they fixed |
-|---|---|
-| [@0xshugo](https://github.com/0xshugo) | Client disconnects handled, retries skipped when there are no tools ([#4](https://github.com/nicedreamzapp/claude-code-local/pull/4)) |
-| [@asdmoment](https://github.com/asdmoment) | Gemma inference crash — auto-disable KV quantization ([#7](https://github.com/nicedreamzapp/claude-code-local/pull/7)) |
-| [@kulveersingh](https://github.com/kulveersingh) | `ArraysCache` has no attribute `offset` ([#10](https://github.com/nicedreamzapp/claude-code-local/pull/10)) |
-| [@tripathiprateek](https://github.com/tripathiprateek) | `uninstall.sh` — reverses `setup.sh` cleanly ([#23](https://github.com/nicedreamzapp/claude-code-local/pull/23)) |
-| [@tadrianonet](https://github.com/tadrianonet) | Mac base/Pro 16 GB support: Qwen 2.5 14B, ChatML stop markers, `<tools>` parser, offline leak fix ([#32](https://github.com/nicedreamzapp/claude-code-local/pull/32)) |
-| [@kevbarns](https://github.com/kevbarns) | Gemma 4 thinking suppression + slimmer tool descriptions — ~4× latency cut ([#33](https://github.com/nicedreamzapp/claude-code-local/pull/33)) |
-| [@KaoCSC](https://github.com/KaoCSC) | Stop on the tokenizer's real EOS, and tolerate empty env ints ([#41](https://github.com/nicedreamzapp/claude-code-local/pull/41)) · bare JSON tool calls, which took Qwen 2.5 Coder from 0/12 to 14/14 ([#43](https://github.com/nicedreamzapp/claude-code-local/pull/43)) |
-
-Tested on **Apple M5 Max** with **128 GB unified memory**.
-
-Built by [Matt Macosko](https://x.com/NiceDreamzApps) in Arcata, CA — one person, no team, no investors; the MLX server, the [leaderboard](https://nicedreamzapp.github.io/agent12/), the [abliterated uploads](https://huggingface.co/divinetribe), the voice loop and the phone bridge are all his. **Open to work** on local-AI and Apple Silicon inference — matt@ineedhemp.com. Part of [Nice Dreamz LLC](https://nicedreamzwholesale.com). More open-source at [nicedreamzwholesale.com/software](https://nicedreamzwholesale.com/software/) · demos at [youtube.com/@nicedreamzapps](https://www.youtube.com/@nicedreamzapps).
-
-<p>
-  <a href="https://x.com/NiceDreamzApps"><img src="https://img.shields.io/badge/X-@NiceDreamzApps-000000?style=flat-square&logo=x&logoColor=white" alt="X"></a>
-  <a href="https://www.youtube.com/@nicedreamzapps"><img src="https://img.shields.io/badge/YouTube-@nicedreamzapps-FF0000?style=flat-square&logo=youtube&logoColor=white" alt="YouTube"></a>
-  <a href="https://github.com/nicedreamzapp"><img src="https://img.shields.io/badge/GitHub-@nicedreamzapp-181717?style=flat-square&logo=github&logoColor=white" alt="GitHub"></a>
-</p>
-
----
-
-<p align="center">
-  <strong>📜 MIT License</strong> — Use it however you want.<br><br>
-  💬 Builders hang out on <a href="https://discord.gg/ZdSqgAxUW">Discord</a> — share what you're building, swap MLX tips.<br><br>
-  ⭐ <strong>Star this repo if it helped you!</strong> ⭐
-</p>
-
-Upstream projects this is built on are listed in [docs/CREDITS.md](docs/CREDITS.md).
-
----
+</div>

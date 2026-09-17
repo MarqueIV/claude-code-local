@@ -1,0 +1,70 @@
+#!/bin/bash
+# keepgoing — out of Claude credits? Type `exit` in Claude Code, then run this (or `keep going`)
+# in the same folder. Your conversation carries on with a free cloud model or a model on this Mac.
+#
+# Settings (all optional), read from the environment or ~/.config/claude-code-local/keepgoing.env:
+#   OPENROUTER_API_KEY   free key from https://openrouter.ai/keys — unlocks the free cloud models
+#   KEEPGOING_BEFORE_LOCAL / KEEPGOING_AFTER_LOCAL
+#                        commands to run before starting a local model and after you're done
+#                        (for example, pause another app that needs the same memory)
+#   MLX_PORT, MLX_PYTHON, MLX_SERVER   same as scripts/start-mlx-server.sh
+
+HERE="$(cd "$(dirname "$(readlink -f "$0" 2>/dev/null || echo "$0")")" && pwd)"
+CONF="$HOME/.config/claude-code-local/keepgoing.env"
+[ -f "$CONF" ] && { set -a; . "$CONF"; set +a; }
+
+PORT="${MLX_PORT:-4000}"
+PYTHON="${MLX_PYTHON:-$HOME/.local/mlx-server/bin/python3}"
+SERVER="${MLX_SERVER:-$HOME/.local/mlx-native-server/server.py}"
+CLAUDE_BIN="$(command -v claude || echo "$HOME/.local/bin/claude")"
+
+SEL="$(python3 "$HERE/keepgoing.py")" || exit 0
+IFS=$'\t' read -r SID KIND MODEL ALREADY <<< "$SEL"
+
+if [ "$KIND" = "cloud" ]; then
+  # OpenRouter speaks the Anthropic Messages API, so Claude Code talks to it directly.
+  export ANTHROPIC_BASE_URL="https://openrouter.ai/api"
+  export ANTHROPIC_AUTH_TOKEN="$OPENROUTER_API_KEY"
+  export ANTHROPIC_MODEL="$MODEL"
+  export ANTHROPIC_DEFAULT_HAIKU_MODEL="$MODEL" ANTHROPIC_DEFAULT_SONNET_MODEL="$MODEL" \
+         ANTHROPIC_DEFAULT_OPUS_MODEL="$MODEL"
+  export API_TIMEOUT_MS=600000 DISABLE_TELEMETRY=1
+  echo ""; echo "  Continuing on $MODEL (free cloud) …"; echo ""
+  exec "$CLAUDE_BIN" --model "$MODEL" --resume "$SID"
+fi
+
+# Local: this repo's MLX server, which speaks the Anthropic API natively.
+if [ -n "$KEEPGOING_AFTER_LOCAL" ]; then
+  trap 'echo ""; echo "  running your after-local command…"; eval "$KEEPGOING_AFTER_LOCAL"' EXIT
+fi
+if [ "$ALREADY" != "1" ]; then
+  [ -n "$KEEPGOING_BEFORE_LOCAL" ] && eval "$KEEPGOING_BEFORE_LOCAL"
+  if lsof -nP -iTCP:"$PORT" -sTCP:LISTEN >/dev/null 2>&1; then
+    echo ""; echo "  Port $PORT is serving a different model — swapping it for $MODEL …"
+    kill "$(lsof -nP -iTCP:"$PORT" -sTCP:LISTEN -t | head -1)" 2>/dev/null
+    sleep 3
+  fi
+  echo ""; echo "  Loading $MODEL on this Mac (the first time downloads it) …"
+  MLX_MODEL="$MODEL" MLX_PORT="$PORT" "$PYTHON" "$SERVER" >/tmp/mlx-server.log 2>&1 &
+  for i in $(seq 1 600); do
+    curl -s "http://localhost:$PORT/health" 2>/dev/null | grep -q '"ok"' && break
+    sleep 2
+    [ $((i % 15)) -eq 0 ] && echo "  still loading … ($((i * 2))s)"
+  done
+  curl -s "http://localhost:$PORT/health" 2>/dev/null | grep -q '"ok"' || {
+    echo "  The model didn't come up. Last lines of /tmp/mlx-server.log:"
+    tail -5 /tmp/mlx-server.log | sed 's/^/    /'
+    exit 1; }
+fi
+
+# Same offline settings as the launchers: nothing leaves this Mac.
+export ANTHROPIC_BASE_URL="http://localhost:$PORT" ANTHROPIC_API_KEY=sk-local
+export CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC=1 DISABLE_AUTOUPDATER=1 \
+       CLAUDE_CODE_DISABLE_OFFICIAL_MARKETPLACE_AUTOINSTALL=1 CLAUDE_CODE_DISABLE_BACKGROUND_TASKS=1
+unset ANTHROPIC_AUTH_TOKEN
+echo ""; echo "  Continuing on $MODEL, 100% on this Mac …"; echo ""
+if [ -n "$KEEPGOING_AFTER_LOCAL" ]; then
+  "$CLAUDE_BIN" --model claude-sonnet-4-6 --resume "$SID"
+else
+  exec "$CLAUDE_BIN" --model claude-sonnet-4-6 --resume "$SID"
+fi
