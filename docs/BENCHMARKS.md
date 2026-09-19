@@ -19,11 +19,13 @@ The same MLX server runs all of them. Just swap the `MLX_MODEL` env var.
 
 | Model | Build | RAM | tok/s | Agent-12 (easy / hard) | Claude Code smoke test, Sep 19 |
 |---|---|:---:|:---:|:---:|:---:|
-| **Qwen 3.8 27B** | 8-bit ([lmstudio-community](https://huggingface.co/lmstudio-community/Qwen3.8-27B-MLX-8bit)) | ~29 GB | 17.9 (39.9 with DFlash 2) | 12/12 · 7/8 (8/8 with a bigger budget) | ✅ 38 s |
+| **Qwen 3.8 27B** | 8-bit ([lmstudio-community](https://huggingface.co/lmstudio-community/Qwen3.8-27B-MLX-8bit)) | ~29 GB | 17.9 plain, 39.9 with DFlash 2 on a short prompt; 20-29 in the agent harness | Sep 19 with DFlash 2: 12/12 in 122 s · 7/8 in 401 s | ✅ 38 s |
 | **Gemma 4 31B Abliterated** | 4-bit | ~18 GB | 26 | 11/12 · 8/8 | default launcher |
 | **Gemma 4 E4B** | 4-bit ([mlx-community](https://huggingface.co/mlx-community/gemma-4-e4b-it-4bit)) | ~5 GB | — | — | ❌ reported running a file it never wrote |
 
 The smoke test: `claude -p` against this repo's server, in an empty folder, asked to create `hello.py` that prints 2+2, run it and report. Pass means the file exists and prints 4. Agent-12 scores are from its own lean harness, not Claude Code: [leaderboard](https://nicedreamzapp.github.io/agent12/).
+
+**Agent-12 rerun with the DFlash 2 drafter (Sep 19).** Same 8-bit weights, tasks and judges as Aug 18; only the drafter moved. Easy 12/12 in 122.0 s (was 350.7 s), hard 7/8 in 401.4 s at the standard budget (was 1,031-1,156 s), about 3x faster at the same accuracy. In-harness speed 20.2 tok/s on easy and 28.7 on hard, prefill included. The big-budget hard run stopped before its last two tasks because another job put the Mac into swap. Full writeup: [qwen38_dflash_rerun.md](https://github.com/nicedreamzapp/agent12/blob/main/writeups/qwen38_dflash_rerun.md).
 
 **Browser test (Sep 16).** Four jobs in four real tabs, checked by script. Gemma 4 31B (bf16): 8/8, 123 s one at a time, 110 s all at once. Qwen 3.8 27B (bf16): 8/8, 175 s and 176 s.
 

@@ -174,7 +174,7 @@ Every number below was measured by us on an M5 Max (128 GB), except the rows mar
 
 | | Model | What we measured | Good for |
 |---|---|---|---|
-| 🟣 | **Qwen 3.8 27B** | Agent-12 (8-bit): 12/12 easy, 7/8 hard, 8/8 with a bigger thinking budget. Browser test (Sep 16, bf16): 8/8. Speed: 17.9 tok/s at 8-bit, 39.9 with the DFlash 2 drafter | Careful coding and pictures, 96 GB Macs |
+| 🟣 | **Qwen 3.8 27B** | Agent-12 with the DFlash 2 drafter (8-bit, Sep 19): 12/12 easy in 122 s, 7/8 hard in 401 s, 20-29 tok/s inside the harness ([writeup](https://github.com/nicedreamzapp/agent12/blob/main/writeups/qwen38_dflash_rerun.md)). Browser test (Sep 16, bf16): 8/8 | Careful coding and pictures, 96 GB Macs |
 | 🟢 | **Gemma 4 31B** (4-bit) | Agent-12: 11/12, 8/8. Browser test (Sep 16): 8/8, about 30% faster than Qwen 3.8 | Daily coding and the browser agent |
 | 🟢 | **Gemma 4 12B** (4-bit) | Not on Agent-12 yet | 32 GB Macs |
 | 🟡 | **Hermes 4 14B** (4-bit) | Not on Agent-12 yet. Runs on a 16 GB Mac ([#54](https://github.com/nicedreamzapp/claude-code-local/issues/54)) | 16 GB MacBooks |
