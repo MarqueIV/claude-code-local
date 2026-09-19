@@ -256,10 +256,23 @@ Each one works on its own. Together they take Claude Code off the keyboard and o
 
 ---
 
+## 🧭 Other ways to do this
+
+This isn't the only way to run Claude Code against models you choose, and some of these may fit you better:
+
+- **[Ollama](https://docs.ollama.com/api/anthropic-compatibility)** speaks the Anthropic Messages API natively since v0.14, so Claude Code can point straight at it. The simplest route if you already use Ollama, and it isn't limited to Macs.
+- **[claude-code-router](https://github.com/musistudio/claude-code-router)** routes Claude Code's requests across many providers and models, local or cloud. Good if you want to mix models per task.
+- **[claude-code-proxy](https://github.com/1rgs/claude-code-proxy)** translates Claude Code's requests to OpenAI-style APIs. Handy if your model already sits behind an OpenAI-compatible server.
+
+What this repo adds is an MLX-native server tuned for Apple Silicon and for the tool-call formats local models actually emit.
+
+---
+
 ## 🤝 Help make it better
 
 Ideas, bug reports, a launcher for a model we don't run: open an
 [issue](https://github.com/nicedreamzapp/claude-code-local/issues/new) or a PR, every one gets read.
+[CONTRIBUTING.md](CONTRIBUTING.md) has how to run it from the repo and the tests.
 We especially love hearing from people on older or smaller Macs about which models really fit.
 
 **Thank you, contributors:** [@0xshugo](https://github.com/0xshugo) ·
