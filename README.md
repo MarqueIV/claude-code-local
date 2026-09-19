@@ -265,7 +265,8 @@ We especially love hearing from people on older or smaller Macs about which mode
 **Thank you, contributors:** [@0xshugo](https://github.com/0xshugo) ·
 [@asdmoment](https://github.com/asdmoment) · [@kulveersingh](https://github.com/kulveersingh) ·
 [@tripathiprateek](https://github.com/tripathiprateek) · [@tadrianonet](https://github.com/tadrianonet) ·
-[@kevbarns](https://github.com/kevbarns) · [@KaoCSC](https://github.com/KaoCSC). What each of them fixed is in
+[@kevbarns](https://github.com/kevbarns) · [@KaoCSC](https://github.com/KaoCSC) ·
+[@zwolf25](https://github.com/zwolf25). What each of them fixed is in
 the [full guide](docs/FULL-GUIDE.md#-credits).
 
 ---
