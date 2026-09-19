@@ -108,10 +108,11 @@ Setup looks at your Mac's memory and picks a model that fits:
 
 | Your Mac's memory | The model you get |
 |---|---|
-| **16 GB** (MacBook Air, base models) | 🟡 Hermes 4 14B — yes, this works |
-| **32–48 GB** (Pro) | 🟢 Gemma 4 12B |
+| **8 GB** | Gemma 4 E4B. It loads and chats, but in our Claude Code test it claimed to run a file it never wrote, so expect tool trouble |
+| **16 GB** (MacBook Air, base models) | 🟡 Hermes 4 14B, confirmed on a 16 GB Mac by a user ([#54](https://github.com/nicedreamzapp/claude-code-local/issues/54)) |
+| **32–63 GB** (Pro) | 🟢 Gemma 4 12B |
 | **64–95 GB** (Max) | 🟢 Gemma 4 31B |
-| **96 GB and up** (Max, Ultra) | 🔵 Qwen 3.5 122B, plus room for 🟠 Llama 3.3 70B and more |
+| **96 GB and up** (Max, Ultra) | 🟣 Qwen 3.8 27B, 8-bit. Passed our Claude Code test (write a file, run it, report) in 38 s |
 
 ---
 
@@ -146,7 +147,7 @@ python3.12 -m venv ~/.local/mlx-server
 ~/.local/mlx-server/bin/pip install mlx-lm
 
 # 2. Pick a model and download it (one time)
-bash scripts/download-and-import.sh gemma   # or 'llama' or 'qwen'
+bash scripts/download-and-import.sh gemma   # or 'qwen', 'gemma12', 'hermes'
 
 # 3. Start the server
 MLX_MODEL=divinetribe/gemma-4-31b-it-abliterated-4bit-mlx \
@@ -167,18 +168,17 @@ it, just restart the server.
 
 ## 🥊 Pick your AI
 
-Same server, same Claude Code. Swap one setting and you swap the brain. Our own ready-to-use builds
-live at **[huggingface.co/divinetribe](https://huggingface.co/divinetribe)**.
+Same server, same Claude Code. Swap one setting and you swap the brain. Links to every build are just below the table.
 
-| | Model | Nickname | Good for |
+Every number below was measured by us on an M5 Max (128 GB), except the rows marked vendor-reported.
+
+| | Model | What we measured | Good for |
 |---|---|---|---|
-| 🟡 | **Hermes 4 14B** | The one that runs on your laptop | Everyday edits on a regular MacBook |
-| 🟢 | **Gemma 4 31B** | The quick one | Daily coding |
-| ✨ | **Muse-Glimmer 30B** | The fresh agent | Tool use, and it can see images |
-| 🟣 | **Qwen 3.8 27B** | The full-precision sprinter | Careful coding plus vision |
-| 🟠 | **Llama 3.3 70B** | The wise one | The hardest thinking |
-| 🔵 | **Qwen 3.5 122B** | The beast | Fastest answers on big Macs |
-| 🐳 | **DeepSeek V4 Flash** | The long-memory whale | Huge projects, via [`ds4`](https://github.com/antirez/ds4) |
+| 🟣 | **Qwen 3.8 27B** | Agent-12 (8-bit): 12/12 easy, 7/8 hard, 8/8 with a bigger thinking budget. Browser test (Sep 16, bf16): 8/8. Speed: 17.9 tok/s at 8-bit, 39.9 with the DFlash 2 drafter | Careful coding and pictures, 96 GB Macs |
+| 🟢 | **Gemma 4 31B** (4-bit) | Agent-12: 11/12, 8/8. Browser test (Sep 16): 8/8, about 30% faster than Qwen 3.8 | Daily coding and the browser agent |
+| 🟢 | **Gemma 4 12B** (4-bit) | Not on Agent-12 yet | 32 GB Macs |
+| 🟡 | **Hermes 4 14B** (4-bit) | Not on Agent-12 yet. Runs on a 16 GB Mac ([#54](https://github.com/nicedreamzapp/claude-code-local/issues/54)) | 16 GB MacBooks |
+| ✨ | **Muse Glimmer 30B**, **Nemotron 3 Nano Omni** | Vendor-reported numbers only, until we run them ourselves | Pictures (and audio, for Nemotron) |
 
 **Which one should I run?** We test them on real agent tasks in the open:
 **[the Agent-12 leaderboard](https://nicedreamzapp.github.io/agent12/)**. Honest note: those scores
@@ -186,6 +186,18 @@ come from Agent-12's own lean test harness (Anvil), **not from inside Claude Cod
 sends the model a lot more per turn, so the same model can score and time differently here.
 
 Sizes, speeds and memory needs for every model are in the **[full guide](docs/FULL-GUIDE.md)**.
+
+### 🤗 Good builds from other people
+
+These are the original releases and the MLX builds we have run ourselves. Credit to the teams who
+made them.
+
+- **Qwen 3.8 27B:** [Qwen/Qwen3.8-27B](https://huggingface.co/Qwen/Qwen3.8-27B) (original) · [lmstudio-community MLX 8-bit](https://huggingface.co/lmstudio-community/Qwen3.8-27B-MLX-8bit) (what `setup.sh` installs) · [mlx-community 8-bit](https://huggingface.co/mlx-community/Qwen3.8-27B-8bit) · [mlx-community bf16](https://huggingface.co/mlx-community/Qwen3.8-27B-bf16) · [incoai DFlash 2 drafter](https://huggingface.co/incoai/Qwen3.8-27B-DFlash2) · [Sharp chat template](https://huggingface.co/peculiar-ragdoll/Qwen-Sharp-Chat-Templates)
+- **Gemma 4:** [google/gemma-4-31B-it](https://huggingface.co/google/gemma-4-31B-it) · [google/gemma-4-12B-it](https://huggingface.co/google/gemma-4-12B-it) · [google/gemma-4-E4B-it](https://huggingface.co/google/gemma-4-E4B-it) · [mlx-community 31B 4-bit](https://huggingface.co/mlx-community/gemma-4-31b-it-4bit) · [mlx-community 31B 8-bit](https://huggingface.co/mlx-community/gemma-4-31b-it-8bit) · [mlx-community E4B 4-bit](https://huggingface.co/mlx-community/gemma-4-e4b-it-4bit)
+- **Hermes 4 14B:** [NousResearch/Hermes-4-14B](https://huggingface.co/NousResearch/Hermes-4-14B)
+- **Muse Glimmer 30B:** [meta-models/Muse-Glimmer-30B](https://huggingface.co/meta-models/Muse-Glimmer-30B) · [mlx-community bf16](https://huggingface.co/mlx-community/Muse-Glimmer-30B-bf16)
+- **Nemotron 3 Nano Omni:** [nvidia/Nemotron-3-Nano-Omni-30B-A3B-Reasoning-BF16](https://huggingface.co/nvidia/Nemotron-3-Nano-Omni-30B-A3B-Reasoning-BF16) · [mlx-community 4-bit](https://huggingface.co/mlx-community/NVIDIA-Nemotron-3-Nano-Omni-30B-A3B-4bit)
+- **Our own abliterated builds:** [huggingface.co/divinetribe](https://huggingface.co/divinetribe)
 
 > ⚠️ **"Abliterated"** models have their built-in refusals turned down. That's not a general upgrade,
 > and each model's own license still applies. Please use them responsibly.
@@ -198,7 +210,7 @@ Each one is a double-click launcher in [`launchers/`](launchers/).
 
 | | Mode | What it does |
 |---|---|---|
-| 🤖 | **Code** | Claude Code with a local model: `Claude Local`, `Gemma 4 Code`, `Llama 70B` |
+| 🤖 | **Code** | Claude Code with a local model: `Claude Local`, `Gemma 4 Code`, `Qwen 3.8 Code` |
 | ⚡ | **Native Engine** | Our own lightweight agent for the fastest replies: the `(Native Engine)` launchers |
 | 🌐 | **Browser** | The local AI drives your real browser: `Browser Agent` ([guide](docs/BROWSER-AGENT.md)) |
 | 🎤 | **Hands-free voice** | Talk to it and hear it answer in your own voice: `Narrative Gemma` ([guide](docs/VOICE-MODE.md)) |

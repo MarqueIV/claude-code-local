@@ -1,5 +1,7 @@
 # Twitter/X Thread — Claude Code Local
 
+> **Archive:** the launch thread from spring 2026, kept as a record. The models named here are not the current lineup; see the [README](../README.md#-pick-your-ai).
+
 ---
 
 **Tweet 1 (Hook)**

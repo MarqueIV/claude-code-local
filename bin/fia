@@ -67,7 +67,7 @@ cmd_help() {
 
   ${C_B}Pick a mode:${C_RST}
     fia start            🧠 Brain   — code with a local model (the easy button)
-    fia gemma | llama    🧠 Brain   — pick a specific fighter
+    fia gemma | qwen     🧠 Brain   — pick a specific fighter
     fia voice            🎤 Voice   — talk to it, hear your cloned voice back
     fia browser          🌐 Browser — let it drive your browser
     fia phone            📱 Phone   — control it from your phone by text
@@ -83,7 +83,7 @@ main() {
   case "$sub" in
     start|code|brain) run_or_hint "$LAUNCHERS/Claude Local.command" "Brain" "Run setup.sh, then download a model: scripts/download-and-import.sh gemma" ;;
     gemma)            run_or_hint "$LAUNCHERS/Gemma 4 Code.command"  "Gemma" "scripts/download-and-import.sh gemma" ;;
-    llama)            run_or_hint "$LAUNCHERS/Llama 70B.command"     "Llama" "scripts/download-and-import.sh llama" ;;
+    qwen)             run_or_hint "$LAUNCHERS/Qwen 3.8 Code.command" "Qwen" "scripts/download-and-import.sh qwen" ;;
     voice|narrate)    run_or_hint "$LAUNCHERS/Narrative Gemma.command" "Voice" "Install NarrateClaude: github.com/nicedreamzapp/NarrateClaude" ;;
     browser)          run_or_hint "$LAUNCHERS/Browser Agent.command" "Browser" "Install browser-agent: github.com/nicedreamzapp/browser-agent" ;;
     phone)

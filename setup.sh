@@ -54,26 +54,27 @@ echo "Installing mlx-lm into virtualenv..."
 echo ""
 echo "Selecting a model from the lineup for your ${MEM_GB} GB Mac..."
 if [ "$MEM_GB" -ge 96 ]; then
-  MODEL_ID="mlx-community/Qwen3.5-122B-A10B-4bit"
-  MODEL_LABEL="Qwen 3.5 122B (THE BEAST — 65 tok/s)"
-  MODEL_TIER="🔵 max"
+  # Passed a Claude Code smoke test on an M5 Max, 2026-09-19 (wrote hello.py, ran it, 38 s).
+  MODEL_ID="lmstudio-community/Qwen3.8-27B-MLX-8bit"
+  MODEL_LABEL="Qwen 3.8 27B, 8-bit (~29 GB)"
+  MODEL_TIER="🟣 max"
 elif [ "$MEM_GB" -ge 64 ]; then
   MODEL_ID="divinetribe/gemma-4-31b-it-abliterated-4bit-mlx"
-  MODEL_LABEL="Gemma 4 31B Abliterated (THE QUICK ONE — ~15 tok/s)"
+  MODEL_LABEL="Gemma 4 31B Abliterated, 4-bit (~18 GB)"
   MODEL_TIER="🟢 fast"
 elif [ "$MEM_GB" -ge 32 ]; then
   MODEL_ID="divinetribe/gemma-4-12B-it-abliterated-4bit-mlx-text"
-  MODEL_LABEL="Gemma 4 12B Abliterated (fast, fits 32 GB easy — ~7 GB)"
+  MODEL_LABEL="Gemma 4 12B Abliterated, 4-bit (~11 GB)"
   MODEL_TIER="🟢 fast"
-  # upgrade for more capability if you have the headroom (~15 GB):
-  #   MODEL_ID="divinetribe/Qwen3.6-27B-abliterated-4bit-mlx"
 elif [ "$MEM_GB" -ge 16 ]; then
   MODEL_ID="divinetribe/Hermes-4-14B-abliterated-4bit-mlx"
-  MODEL_LABEL="Hermes 4 14B Abliterated (the 16 GB MacBook pick — ~8 GB)"
+  MODEL_LABEL="Hermes 4 14B Abliterated, 4-bit (~8 GB)"
   MODEL_TIER="🟡 laptop"
 else
-  MODEL_ID="mlx-community/Qwen3.5-4B-4bit"
-  MODEL_LABEL="Qwen 3.5 4B (lightweight, browser-agent friendly)"
+  # Loads and chats, but in a Claude Code smoke test (2026-09-19) it claimed to run a
+  # file it never wrote. Small Macs get it anyway; tool use will be unreliable.
+  MODEL_ID="mlx-community/gemma-4-e4b-it-4bit"
+  MODEL_LABEL="Gemma 4 E4B, 4-bit (~5 GB, may struggle with tool calls)"
   MODEL_TIER="🟠 small"
 fi
 
@@ -82,7 +83,7 @@ echo "Model ID: $MODEL_ID"
 echo ""
 
 # ── Download model ────────────────────────────────────────────
-echo "Downloading $MODEL_ID (one time, can be 18-75 GB)..."
+echo "Downloading $MODEL_ID (one time, 5-30 GB)..."
 "$MLX_VENV/bin/python3" - <<PY
 from mlx_lm.utils import load
 load("$MODEL_ID")
@@ -198,8 +199,8 @@ echo "║                                                  ║"
 echo "║  Double-click 'Claude Local' on your Desktop     ║"
 echo "║  to start coding with local AI.                  ║"
 echo "║                                                  ║"
-echo "║  Want a different fighter? See launchers/ for    ║"
-echo "║  Gemma 4 Code, Llama 70B, Browser Agent,         ║"
+echo "║  Want a different model? See launchers/ for      ║"
+echo "║  Gemma 4 Code, Qwen 3.8 Code, Browser Agent,     ║"
 echo "║  and Narrative Gemma launchers.                  ║"
 echo "║                                                  ║"
 echo "╚══════════════════════════════════════════════════╝"

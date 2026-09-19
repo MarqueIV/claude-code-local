@@ -5,14 +5,14 @@
 <p align="center">
   <h1 align="center">🧠⚡ Claude Code Local</h1>
   <p align="center">
-    <strong>Run Claude Code 100% on-device with local AI on Apple Silicon.<br>No cloud, no API key, no proxy — an MLX-native server that speaks the Anthropic API.<br>🥊 Pick your fighter: Hermes 4 14B · Gemma 4 31B · Muse-Glimmer 30B · Qwen 3.8 27B bf16 · Llama 3.3 70B · Qwen 3.5 122B · DeepSeek V4 Flash (1M context via <a href="#-deepseek-v4-flash-via-ds4"><code>ds4</code></a>).</strong>
+    <strong>Run Claude Code 100% on-device with local AI on Apple Silicon.<br>No cloud, no API key, no proxy — an MLX-native server that speaks the Anthropic API.<br>🥊 Pick your model: Qwen 3.8 27B · Gemma 4 31B · Gemma 4 12B · Hermes 4 14B · Muse-Glimmer 30B · Nemotron 3 Nano Omni.</strong>
   </p>
   <p align="center">
     <a href="https://github.com/nicedreamzapp/claude-code-local/stargazers"><img src="https://img.shields.io/github/stars/nicedreamzapp/claude-code-local?style=for-the-badge&logo=github&color=f5c542&labelColor=1f2328" alt="GitHub stars"></a>
     <a href="https://github.com/nicedreamzapp/claude-code-local/network/members"><img src="https://img.shields.io/github/forks/nicedreamzapp/claude-code-local?style=for-the-badge&logo=github&color=4c9a2a&labelColor=1f2328" alt="GitHub forks"></a>
     <a href="#-the-lineup--pick-your-fighter"><img src="https://img.shields.io/badge/🥊_Lineup-7_Models-red?style=for-the-badge" alt="7 Models"></a>
     <a href="https://nicedreamzapp.github.io/agent12/"><img src="https://img.shields.io/badge/🏆_Agent--12-Local_Agent_Leaderboard-gold?style=for-the-badge" alt="Agent-12 leaderboard"></a>
-    <a href="#-benchmarks"><img src="https://img.shields.io/badge/⚡_Qwen_3.5-65_tok%2Fs-brightgreen?style=for-the-badge" alt="Qwen 3.5 speed"></a>
+    <a href="#-benchmarks"><img src="https://img.shields.io/badge/⚡_Qwen_3.8_+_DFlash_2-39.9_tok%2Fs-brightgreen?style=for-the-badge" alt="Qwen 3.8 speed"></a>
     <a href="#-benchmarks"><img src="https://img.shields.io/badge/🚀_Claude_Code_Task-17.6s-blue?style=for-the-badge" alt="Claude Code task time"></a>
     <a href="#-privacy--how-the-data-flows"><img src="https://img.shields.io/badge/🔒_Privacy-100%25_Local-success?style=for-the-badge" alt="100% Local"></a>
     <a href="VOICE-MODE.md"><img src="https://img.shields.io/badge/🎤_Voice-Hands_Free-orange?style=for-the-badge" alt="Hands-Free Voice"></a>
@@ -78,7 +78,7 @@ No internet, no subscription, nobody sees your code — and it's the full Claude
 
 ## 🎬 Watch It Run — AirGap AI
 
-**A real NDA. Llama 3.3 70B. Wi-Fi physically OFF. `lsof` running live.** Watch a 70-billion-parameter model audit a confidential legal document, on-device, with the receipts on screen.
+**A real NDA. Wi-Fi physically OFF. `lsof` running live.** Watch a local model audit a confidential legal document, on-device, with the receipts on screen. (Recorded in spring 2026 on the model we ran then; the privacy setup is unchanged, and today's models are in [the lineup](#-the-lineup--pick-your-fighter).)
 
 <p align="center">
   <a href="https://www.youtube.com/watch?v=V_J1LpNGwmY">
@@ -90,7 +90,7 @@ No internet, no subscription, nobody sees your code — and it's the full Claude
   <em>AirGap is this whole build running as one private workstation — a capability, not a product. Everything you need is in this repo. If your firm needs one built, <a href="https://nicedreamzwholesale.com/airgap/">here's what it looks like</a>.</em>
 </p>
 
-**More local-AI demos on the channel:**
+**More local-AI demos on the channel** (dated recordings; each shows the models we ran at the time):
 
 | Video | What happens |
 |---|---|
@@ -106,100 +106,79 @@ No internet, no subscription, nobody sees your code — and it's the full Claude
 
 The question every issue here eventually asks. So we measure it. **[Agent-12](https://nicedreamzapp.github.io/agent12/)** runs each local model through real agent tasks in a sandboxed working directory, judged by what ends up on the filesystem, never by the model's prose. Temperature 0, fixed caps, fresh sandbox per task, one variable moved per comparison. Tasks, judges, runner and the judge-validation gate are all open at [github.com/nicedreamzapp/agent12](https://github.com/nicedreamzapp/agent12).
 
+The two models we recommend, as measured there:
+
 | Model | Easy (12) | time | Hard (8) | time | tok/s |
 |---|:---:|:---:|:---:|:---:|:---:|
-| 🏆 **Qwen3.6-35B-A3B** (MLX 8-bit) | **12/12** | 64s | **8/8** | 125s | 46 |
-| Qwen3-Coder-30B-A3B (MLX 8-bit) | 12/12 | 43s | 7/8 | 392s | 84 |
-| Gemma 4 31B (MLX 4-bit) | 11/12 | 92s | 8/8 | 348s | 26 |
-| DeepSeek V4 Flash (2-bit, 0731 imatrix, `ds4`) | 12/12 | 203s | 8/8 | 551s | 8.4 |
-| Qwen3.8-27B (MLX 8-bit, dense) | 12/12 | 351s | 7/8 | 1156s | — |
+| **Gemma 4 31B** (MLX 4-bit) | 11/12 | 92s | 8/8 | 348s | 26 |
+| **Qwen3.8-27B** (MLX 8-bit, dense) | 12/12 | 351s | 7/8 | 1156s | — |
 | *Claude Sonnet 5 (cloud, reference only)* | 12/12 | 122s | 8/8 | 131s | — |
 
-**Where these numbers come from:** every row was measured inside Agent-12's own lean reference harness (Anvil, a ~550-token native terminal engine with per-model tool-call dialects) — **not inside Claude Code itself.** Claude Code as installed sends the model far more per turn (with MCP servers connected, tens of thousands of tokens of tool definitions on the first turn), and the same model scores and times differently there. A contributor measured that gap on the same model and engine in [agent12 #1](https://github.com/nicedreamzapp/agent12/issues/1): 8/8 hard in 105s under Anvil vs 6/8 in 310s inside Claude Code as installed. The harness is the variable; the board holds it fixed so models can be compared against each other.
+Every other model we have run is on [the full board](https://nicedreamzapp.github.io/agent12/).
 
-All local rows: Apple M5 Max, 128 GB. The headline: the local champion clears the same hard suite as cloud Claude, and does it **faster on wall-clock** (125s vs 131s) because there is no network in the loop. Read the launch story: [*I took down six of my own benchmark videos, then built the leaderboard*](https://nicedreamzwholesale.com/2026/08/10/i-took-down-six-of-my-own-benchmark-videos-then-i-built-the-local-agent-leaderboard/) · [71-second video](https://youtu.be/O0yWqc46tGM).
+**Where these numbers come from:** every row was measured inside Agent-12's own lean reference harness (Anvil, a ~550-token native terminal engine with per-model tool-call dialects), **not inside Claude Code itself.** Claude Code as installed sends the model far more per turn (with MCP servers connected, tens of thousands of tokens of tool definitions on the first turn), and the same model scores and times differently there. A contributor measured that gap on the same model and engine in [agent12 #1](https://github.com/nicedreamzapp/agent12/issues/1): 8/8 hard in 105s under Anvil vs 6/8 in 310s inside Claude Code as installed. The harness is the variable; the board holds it fixed so models can be compared against each other. All local rows: Apple M5 Max, 128 GB.
 
-Qwen 3.8 reaches 8/8 hard when given an 8000-token budget, but at 16.9× Qwen3.6's wall-clock ([full writeup](https://github.com/nicedreamzapp/agent12/blob/main/writeups/qwen38_vs_qwen36.md)). Muse-Glimmer 30B and Nemotron Omni are listed on the board in a separate **vendor-reported** section with Meta's and NVIDIA's own published numbers, credited and linked, until they get a real Agent-12 run.
+Qwen 3.8 reaches 8/8 hard when given an 8000-token thinking budget; its misses at the standard budget were the cap cutting it off mid-thought ([writeup](https://github.com/nicedreamzapp/agent12/blob/main/writeups/qwen38_vs_qwen36.md)). Muse-Glimmer 30B and Nemotron Omni are listed on the board in a separate **vendor-reported** section with Meta's and NVIDIA's own published numbers, credited and linked, until they get a real Agent-12 run.
+
+**Browser test (Sep 16, 2026).** Four real jobs in four real browser tabs, each checked by script: Gemma 4 31B (bf16) got 8/8 in 123 s one at a time and 110 s all at once; Qwen 3.8 27B (bf16) got 8/8 in 175 s and 176 s. Gemma is the faster browser driver.
 
 ---
 
 ## 🥊 The Lineup — Pick Your Fighter
 
-We started with one model. Now we ship a **roster** — and it's a **living lineup**: we're builders, this repo is always testing and updating, and new fighters get added the day they drop and benchmarked as we run them. Same MLX server, same Anthropic API — swap one env var and you swap the brain. Plus the `ds4` engine for DeepSeek V4 Flash via its own native Metal runtime.
+Same MLX server, same Anthropic API. Swap one env var and you swap the brain. Every speed here was measured by us on an M5 Max 128 GB unless marked.
 
-| | 🟡 **Hermes 4 14B** | 🟢 **Gemma 4 31B** | ✨ **Muse-Glimmer 30B** | 🟣 **Qwen 3.8 27B** 🆕 | 🟠 **Llama 3.3 70B** | 🔵 **Qwen 3.5 122B** | 🐳 **DeepSeek V4 Flash** ⭐ |
+| | 🟣 **Qwen 3.8 27B** | 🟢 **Gemma 4 31B** | 🟢 **Gemma 4 12B** | 🟡 **Hermes 4 14B** | 🟠 **Gemma 4 E4B** | ✨ **Muse-Glimmer 30B** | 👁️ **Nemotron 3 Nano Omni** |
 |---|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
-| Nickname | **The One That Runs On Your Laptop** | The Quick One | The Fresh Agent | **The Full-Precision Sprinter** | The Wise One | The Beast | The 1M-Context Whale |
-| Build | 4-bit abliterated | 4-bit IT abliterated | 8-bit abliterated (in-house) | **bf16, nothing quantized** + DFlash 2 drafter | 8-bit abliterated | 4-bit MoE (A10B) | 2-bit asymmetric (ds4 GGUF) |
-| Speed | not benchmarked yet | ~15 tok/s | **~18 tok/s** | **36.5 tok/s** (9.7 without the drafter) | ~7 tok/s | **65 tok/s** 🚀 | ~32 tok/s |
-| Params | 14 B dense (Qwen3 base) | 31 B dense | ~30 B | 27 B dense | 71 B dense | 122 B / 10 B active | **284 B / 37 B active** |
-| Context | 40 K | 128 K | 128 K | **262 K** | 128 K | 256 K | **1 M tokens** |
-| RAM | ~8 GB | ~18 GB | ~30 GB | ~59 GB (55 weights + 4 drafter) | ~70 GB | ~75 GB | ~81 GB |
-| Min RAM to run | **16 GB** | 32 GB | 48 GB | 96 GB | 96 GB | 96 GB | 128 GB |
-| Best at | Everyday edits on a stock MacBook | Daily coding | Vision + agentic tool use, uncensored | Full-precision coding + vision at quantized speed | Hardest reasoning, full precision | Max throughput, active sparsity | Long context, agentic loops |
-| Engine | MLX Native | MLX Native | MLX Native | [`mlx-dspark`](https://github.com/ARahim3/mlx-dspark) (MLX + DFlash 2) | MLX Native | MLX Native | [`antirez/ds4`](https://github.com/antirez/ds4) |
-| Launcher | `Claude Local.command` | `Gemma 4 Code.command` | *coming* | *coming* | `Llama 70B.command` | `Claude Local.command` | `DeepSeek V4 Flash.app` |
+| Build | 8-bit ([lmstudio-community](https://huggingface.co/lmstudio-community/Qwen3.8-27B-MLX-8bit)), or bf16 + DFlash 2 | 4-bit abliterated | 4-bit abliterated | 4-bit abliterated | 4-bit ([mlx-community](https://huggingface.co/mlx-community/gemma-4-e4b-it-4bit)) | bf16 / 8-bit abliterated (in-house) | bf16 / 8-bit / 4-bit abliterated (in-house) |
+| Speed | 17.9 tok/s at 8-bit, **39.9** with DFlash 2; bf16 + DFlash 2: 36.5 | 26 tok/s | not measured | not measured | not measured | ~18 tok/s (8-bit) | see [nemotron-omni-mlx](https://github.com/nicedreamzapp/nemotron-omni-mlx) |
+| Agent-12 | 12/12 easy, 7/8 hard (8/8 with a bigger budget) | 11/12, 8/8 | not yet | not yet | not yet | vendor-reported only | vendor-reported only |
+| Claude Code smoke test (Sep 19) | ✅ 38 s | ✅ (the default launcher) | — | ✅ on a 16 GB Mac ([#54](https://github.com/nicedreamzapp/claude-code-local/issues/54)) | ❌ claimed to run a file it never wrote | — | — |
+| RAM | ~29 GB (8-bit) | ~18 GB | ~11 GB | ~8 GB | ~5 GB | ~30–60 GB | ~20–66 GB |
+| `setup.sh` gives it to | 96 GB+ | 64–95 GB | 32–63 GB | 16–31 GB | under 16 GB | — | — |
+| Launcher | `Qwen 3.8 Code.command` | `Gemma 4 Code.command`, `Claude Local.command` | `Claude Local.command` | `Claude Local.command` | `Claude Local.command` | *coming* | *coming* |
 
-> 🟣 **Qwen 3.8 27B just landed (Aug 20, 2026) — and we run it at full bf16.** Alibaba's new 27B dense model (Apache 2.0, native image + video input, 262K context) is the first small model we'd put next to the cloud ones, so we refused to quantize it. The trick that makes bf16 livable is **[DFlash 2](https://inco.ai/blog/dflash2/)**, a speculative-decoding drafter from Inco AI / Z Lab: a 2B draft model proposes a block of tokens, the 27B verifies the block in one pass, and the output is **byte-identical** to plain decoding. Measured on our M5 Max 128 GB, same prompt, 600 tokens, greedy: **9.7 tok/s plain → 36.5 tok/s with DFlash 2** (3.8×, 4.4 accepted tokens per round). Weights: [`mlx-community/Qwen3.8-27B-bf16`](https://huggingface.co/mlx-community/Qwen3.8-27B-bf16) (54.7 GB) + drafter [`incoai/Qwen3.8-27B-DFlash2`](https://huggingface.co/incoai/Qwen3.8-27B-DFlash2) (3.8 GB), served by [`mlx-dspark`](https://github.com/ARahim3/mlx-dspark) (`pip install mlx-dspark`, OpenAI-compatible API). Two tips that survived a night of testing: keep the draft block at 5 on Metal (4/6/7/10 were all slower for us and for others), and drop the community **[Sharp chat template](https://huggingface.co/peculiar-ragdoll/Qwen-Sharp-Chat-Templates)** into the model folder — it fixes the stock template's empty-think aborts, defaults reasoning to `medium` instead of `xhigh`, and makes the model lead with the answer. Vision works through `mlx-vlm` (no drafter on that path yet). Claude Code launcher is next on the list.
+> 🟣 **Qwen 3.8 27B at full precision.** Alibaba's 27B dense model (Apache 2.0, native image + video input, 262K context). The trick that makes bf16 livable is **[DFlash 2](https://inco.ai/blog/dflash2/)**, a speculative-decoding drafter from Inco AI / Z Lab: a 2B draft model proposes a block of tokens, the 27B verifies the block in one pass, and the output is **byte-identical** to plain decoding. Measured on our M5 Max 128 GB, greedy: **9.7 → 36.5 tok/s at bf16** and **17.9 → 39.9 tok/s at 8-bit** with the drafter. Weights: [`mlx-community/Qwen3.8-27B-bf16`](https://huggingface.co/mlx-community/Qwen3.8-27B-bf16) + drafter [`incoai/Qwen3.8-27B-DFlash2`](https://huggingface.co/incoai/Qwen3.8-27B-DFlash2), served by [`mlx-dspark`](https://github.com/ARahim3/mlx-dspark) (`pip install mlx-dspark`, OpenAI-compatible API). Two tips that survived a night of testing: keep the draft block at 5 on Metal, and drop the community **[Sharp chat template](https://huggingface.co/peculiar-ragdoll/Qwen-Sharp-Chat-Templates)** into the model folder. It fixes the stock template's empty-think aborts, defaults reasoning to `medium` instead of `xhigh`, and makes the model lead with the answer.
 >
-> 🧪 **Muse-Glimmer just landed (Aug 2026)** — Meta's new agentic 30B, [abliterated in-house](#-our-own-mlx-abliterated-uploads) (our first self-abliteration). Decode speed is measured — **~18 tok/s** on an M-series Max, 8-bit (a touch quicker than Gemma 4 31B).
->
-> 👁️ **Now with vision** via the [`-MM-bf16`](https://huggingface.co/divinetribe/Muse-Glimmer-30B-Abliterated-MM-bf16) build — **[watch it read a chart, a neon sign and a blurred car badge](https://www.youtube.com/watch?v=5fs_FfkCaDA)**. Details in [our uploads](#-our-own-mlx-abliterated-uploads).
+> ✨ **Muse-Glimmer (Aug 2026)**: Meta's agentic 30B, [abliterated in-house](#-our-own-mlx-abliterated-uploads). ~18 tok/s at 8-bit. 👁️ Vision via the [`-MM-bf16`](https://huggingface.co/divinetribe/Muse-Glimmer-30B-Abliterated-MM-bf16) build: **[watch it read a chart, a neon sign and a blurred car badge](https://www.youtube.com/watch?v=5fs_FfkCaDA)**.
 
-> 💻 **Got a 16 GB MacBook Air?** Start with Hermes. `setup.sh` picks it for you automatically — you don't need 96 GB of RAM to use this.
+> 💻 **Got a 16 GB MacBook Air?** `setup.sh` picks Hermes 4 14B for you automatically.
 
-> 💡 **Fun fact:** Qwen wins raw speed because it's an MoE — only 10B of 122B params activate per token. DeepSeek V4 Flash is even bigger (284B) but only ~37B active per token, *and* it ships with on-disk KV cache so a 25k-token Claude Code system prompt prefills exactly once, ever.
+### 🤗 Good builds from other people
 
-### 🐳 DeepSeek V4 Flash via `ds4`
+Original releases and MLX builds of everything above. Credit to the teams who made them.
 
-We tested it the day Antirez (the Redis guy) shipped `ds4`. **Local DeepSeek beat cloud Claude on wall-clock time** on the same MacBook, same prompt — [watch the three-way](https://youtu.be/7l8-s8xkpms).
-
-| | |
-|---|---|
-| 🧠 **Engine** | [`antirez/ds4`](https://github.com/antirez/ds4) — pure C + Metal kernels, ~few thousand lines |
-| 🤗 **Weights** | [`antirez/deepseek-v4-gguf`](https://huggingface.co/antirez/deepseek-v4-gguf) (q2: 81 GB, q4: 153 GB) |
-| 📦 **Server wrapper** | `~/.local/bin/ds4-server-up` (boots on demand) |
-| 🚀 **Claude Code wrapper** | `~/.local/bin/claude-ds4` (drop-in replacement for `claude`) |
-| 📏 **Context** | 1 M tokens; 200 K is sane for most agent runs |
-| 💾 **Disk KV cache** | Persists across restarts — first prefill is the only one that ever happens |
+- **Qwen 3.8 27B:** [Qwen/Qwen3.8-27B](https://huggingface.co/Qwen/Qwen3.8-27B) · [lmstudio-community MLX 8-bit](https://huggingface.co/lmstudio-community/Qwen3.8-27B-MLX-8bit) · [mlx-community 8-bit](https://huggingface.co/mlx-community/Qwen3.8-27B-8bit) · [mlx-community bf16](https://huggingface.co/mlx-community/Qwen3.8-27B-bf16) · [incoai DFlash 2 drafter](https://huggingface.co/incoai/Qwen3.8-27B-DFlash2)
+- **Gemma 4:** [google/gemma-4-31B-it](https://huggingface.co/google/gemma-4-31B-it) · [google/gemma-4-12B-it](https://huggingface.co/google/gemma-4-12B-it) · [google/gemma-4-E4B-it](https://huggingface.co/google/gemma-4-E4B-it) · [mlx-community 31B 4-bit](https://huggingface.co/mlx-community/gemma-4-31b-it-4bit) · [mlx-community 31B 8-bit](https://huggingface.co/mlx-community/gemma-4-31b-it-8bit) · [mlx-community E4B 4-bit](https://huggingface.co/mlx-community/gemma-4-e4b-it-4bit)
+- **Hermes 4 14B:** [NousResearch/Hermes-4-14B](https://huggingface.co/NousResearch/Hermes-4-14B)
+- **Muse Glimmer 30B:** [meta-models/Muse-Glimmer-30B](https://huggingface.co/meta-models/Muse-Glimmer-30B) · [mlx-community bf16](https://huggingface.co/mlx-community/Muse-Glimmer-30B-bf16)
+- **Nemotron 3 Nano Omni:** [nvidia/Nemotron-3-Nano-Omni-30B-A3B-Reasoning-BF16](https://huggingface.co/nvidia/Nemotron-3-Nano-Omni-30B-A3B-Reasoning-BF16) · [mlx-community 4-bit](https://huggingface.co/mlx-community/NVIDIA-Nemotron-3-Nano-Omni-30B-A3B-4bit)
 
 ### ⭐ Our Own MLX Abliterated Uploads
 
-The models in this lineup aren't from generic mirrors — **we package and upload our own abliterated MLX builds** to HuggingFace so anyone running this repo can pull them with one command. Browse the full set at [huggingface.co/divinetribe](https://huggingface.co/divinetribe).
+We also package and upload our own abliterated MLX builds to HuggingFace so anyone running this repo can pull them with one command. Browse the full set at [huggingface.co/divinetribe](https://huggingface.co/divinetribe).
 
 ```bash
-# Llama 3.3 70B — full-precision feel
-MLX_MODEL=divinetribe/Llama-3.3-70B-Instruct-abliterated-8bit-mlx \
-  bash scripts/start-mlx-server.sh
-
 # Gemma 4 31B — fast daily driver
 MLX_MODEL=divinetribe/gemma-4-31b-it-abliterated-4bit-mlx \
   bash scripts/start-mlx-server.sh
 
-# Hermes 4 14B — sweet spot for 16/32 GB Macs
+# Hermes 4 14B — for 16 GB Macs
 MLX_MODEL=divinetribe/Hermes-4-14B-abliterated-4bit-mlx \
-  bash scripts/start-mlx-server.sh
-
-# Muse-Glimmer 30B — Meta's new agentic model, abliterated in-house
-MLX_MODEL=divinetribe/Muse-Glimmer-30B-Abliterated-8bit \
   bash scripts/start-mlx-server.sh
 ```
 
-Every public model on [huggingface.co/divinetribe](https://huggingface.co/divinetribe), as of Aug 20, 2026. Sizes are the real on-disk totals from the Hub. All are MLX-format; the 👁️ ones take images.
+Current public models on [huggingface.co/divinetribe](https://huggingface.co/divinetribe). Sizes are the real on-disk totals from the Hub. All are MLX-format; the 👁️ ones take images.
 
 **Text models**
 
 | Model | Quant | Disk | Params | Context | Best for |
 |---|---|---|---|---|---|
-| [`Llama-3.3-70B-Instruct-abliterated-8bit-mlx`](https://huggingface.co/divinetribe/Llama-3.3-70B-Instruct-abliterated-8bit-mlx) | 8-bit, g64 | 75.0 GB | 71 B dense | 128 K | Hardest reasoning on 96 GB+ Macs |
-| [`Huihui-Qwen3-Coder-Next-Opus-4.6-Reasoning-Distilled-abliterated-4bit-mlx`](https://huggingface.co/divinetribe/Huihui-Qwen3-Coder-Next-Opus-4.6-Reasoning-Distilled-abliterated-4bit-mlx) | 4-bit | 44.9 GB | Qwen3-Coder-Next MoE | — | Coding agent distilled from Opus 4.6 reasoning traces, 64 GB+ Macs |
-| [`gemma-4-31b-it-abliterated-4bit-mlx`](https://huggingface.co/divinetribe/gemma-4-31b-it-abliterated-4bit-mlx) | 4-bit, g64 | 17.3 GB | 31 B dense | 128 K | Daily coding on a 32 GB+ Mac (the default fighter) |
+| [`gemma-4-31b-it-abliterated-4bit-mlx`](https://huggingface.co/divinetribe/gemma-4-31b-it-abliterated-4bit-mlx) | 4-bit, g64 | 17.3 GB | 31 B dense | 128 K | Daily coding on a 64 GB Mac (the default launcher) |
 | [`Huihui-gemma-4-31B-it-abliterated-4bit-mlx`](https://huggingface.co/divinetribe/Huihui-gemma-4-31B-it-abliterated-4bit-mlx) | 4-bit, g64 | 17.3 GB | 31 B dense | 128 K | Same model, huihui-ai's abliteration instead of null-space's |
-| [`Qwen3.6-27B-abliterated-4bit-mlx`](https://huggingface.co/divinetribe/Qwen3.6-27B-abliterated-4bit-mlx) | 4-bit | 15.2 GB | 27 B dense | 256 K | Qwen 3.6 generation, 32 GB+ Macs |
 | [`gemma-4-12B-it-abliterated-4bit-mlx`](https://huggingface.co/divinetribe/gemma-4-12B-it-abliterated-4bit-mlx) | 4-bit | 11.0 GB | 12 B dense | 128 K | 32 GB Macs |
 | [`gemma-4-12B-it-abliterated-4bit-mlx-text`](https://huggingface.co/divinetribe/gemma-4-12B-it-abliterated-4bit-mlx-text) | 4-bit | 11.0 GB | 12 B dense | 128 K | Same, vision tower stripped — loads in plain `mlx-lm` |
-| [`Hermes-4-14B-abliterated-4bit-mlx`](https://huggingface.co/divinetribe/Hermes-4-14B-abliterated-4bit-mlx) | 4-bit, g64 | 8.3 GB | 14 B dense (Qwen3 base) | 40 K | 16 GB Macs, instruction-following, tool use |
-| [`Huihui-Qwen3-8B-abliterated-v2-4bit-mlx`](https://huggingface.co/divinetribe/Huihui-Qwen3-8B-abliterated-v2-4bit-mlx) | 4-bit | 4.6 GB | 8 B dense | 40 K | 8-16 GB Macs, the smallest thing here that still follows tools |
+| [`Hermes-4-14B-abliterated-4bit-mlx`](https://huggingface.co/divinetribe/Hermes-4-14B-abliterated-4bit-mlx) | 4-bit, g64 | 8.3 GB | 14 B dense | 40 K | 16 GB Macs |
 
 **Vision + text models** 👁️
 
@@ -209,13 +188,12 @@ Every public model on [huggingface.co/divinetribe](https://huggingface.co/divine
 | [`Nemotron-3-Nano-Omni-30B-Abliterated-MM-8bit`](https://huggingface.co/divinetribe/Nemotron-3-Nano-Omni-30B-Abliterated-MM-8bit) 👁️🎧 | 8-bit | 35.8 GB | 30 B / 3 B active MoE | 128 K | Same, 48 GB+ Macs |
 | [`Nemotron-3-Nano-Omni-30B-Abliterated-MM-4bit`](https://huggingface.co/divinetribe/Nemotron-3-Nano-Omni-30B-Abliterated-MM-4bit) 👁️🎧 | 4-bit | 19.7 GB | 30 B / 3 B active MoE | 128 K | Same, 32 GB Macs |
 | [`Muse-Glimmer-30B-Abliterated-MM-bf16`](https://huggingface.co/divinetribe/Muse-Glimmer-30B-Abliterated-MM-bf16) 👁️ | bf16 | 59.6 GB | ~30 B | 128 K | Meta's agentic 30B with the full vision tower, abliterated in-house; runs via [`mlx-vlm-muse-glimmer`](https://github.com/nicedreamzapp/mlx-vlm-muse-glimmer) |
-| [`Huihui-Qwen3-VL-32B-Instruct-abliterated-4bit-mlx`](https://huggingface.co/divinetribe/Huihui-Qwen3-VL-32B-Instruct-abliterated-4bit-mlx) 👁️ | 4-bit | 19.6 GB | 32 B dense | 256 K | Qwen3-VL vision-language, 32 GB+ Macs |
 
-Also on the Hub: [`yolov8n-oiv7-coreml`](https://huggingface.co/divinetribe/yolov8n-oiv7-coreml), the 601-class CoreML detector behind [RealTimeAICam](https://github.com/nicedreamzapp/RealTimeAICam).
+Older uploads are still on the Hub for anyone who depends on them, but we no longer recommend them: Llama 3.3 70B, Qwen3-8B, Qwen3-Coder-Next distilled, Qwen3-VL-32B and Qwen 3.6 27B. Also on the Hub: [`yolov8n-oiv7-coreml`](https://huggingface.co/divinetribe/yolov8n-oiv7-coreml), the 601-class CoreML detector behind [RealTimeAICam](https://github.com/nicedreamzapp/RealTimeAICam).
 
-**Abliteration sources:** [huihui-ai](https://huggingface.co/huihui-ai) (Llama, Qwen, one of the Gemma 31Bs), [null-space](https://huggingface.co/null-space) (Gemma 4 31B), [OpenYourMind](https://huggingface.co/OpenYourMind) (Gemma 4 12B) and [Babsie](https://huggingface.co/Babsie) (Hermes). **Muse-Glimmer and Nemotron Omni we abliterated ourselves** — refusal direction removed across every residual-writing layer (layer 26 on Glimmer), on the freshly-released bf16 weights, with the vision (and for Nemotron, audio) towers kept intact. We believe Glimmer-MM was the first abliterated multimodal model running on Apple MLX. MLX conversion + quantization by us. See [what abliteration means](https://huggingface.co/blog/mlabonne/abliteration).
+**Abliteration sources:** [huihui-ai](https://huggingface.co/huihui-ai) (one of the Gemma 31Bs), [null-space](https://huggingface.co/null-space) (Gemma 4 31B), [OpenYourMind](https://huggingface.co/OpenYourMind) (Gemma 4 12B) and [Babsie](https://huggingface.co/Babsie) (Hermes). **Muse-Glimmer and Nemotron Omni we abliterated ourselves**: refusal direction removed across every residual-writing layer (layer 26 on Glimmer), on the freshly-released bf16 weights, with the vision (and for Nemotron, audio) towers kept intact. We believe Glimmer-MM was the first abliterated multimodal model running on Apple MLX. MLX conversion + quantization by us. See [what abliteration means](https://huggingface.co/blog/mlabonne/abliteration).
 
-> ⚠️ **Use it responsibly.** "Abliterated" suppresses the model's built-in refusal direction so it doesn't refuse benign-but-edgy requests. It is **not** a general capability upgrade, and you remain bound by each upstream license (Llama 3.3, Gemma, Hermes/Qwen3, Qwen3.6/VL, Muse-Glimmer, Nemotron).
+> ⚠️ **Use it responsibly.** "Abliterated" suppresses the model's built-in refusal direction so it doesn't refuse benign-but-edgy requests. It is **not** a general capability upgrade, and you remain bound by each upstream license (Gemma, Hermes, Muse-Glimmer, Nemotron).
 
 ---
 
@@ -225,7 +203,7 @@ Four ways to run the lineup. Each one is a double-clickable launcher in `launche
 
 | Mode | What it does | Launcher |
 |---|---|---|
-| 🤖 **Code** | Run Claude Code with a local model — same UX, no API key | `Claude Local.command`, `Gemma 4 Code.command`, `Llama 70B.command` |
+| 🤖 **Code** | Run Claude Code with a local model — same UX, no API key | `Claude Local.command`, `Gemma 4 Code.command`, `Qwen 3.8 Code.command` |
 | ⚡ **Native Engine** *(new)* | Our own ~900-line agent, model loaded in-process — replies start in ~0.3 s deep into long sessions ([details](#-gen-4--the-native-engine-added-aug-7-2026)) | `Gemma 4 Code (Native Engine).command`, `Qwen 3 Coder (Native Engine).command` |
 | 🌐 **Browser** | Local AI controls real Brave browser via Chrome DevTools | `Browser Agent.command` |
 | 🎤 **Hands-Free Voice** | Speak in, hear replies in your cloned voice — full loop, 100% on-device | `Narrative Gemma.command` + [NarrateClaude](https://github.com/nicedreamzapp/NarrateClaude) |
@@ -237,10 +215,11 @@ Four ways to run the lineup. Each one is a double-clickable launcher in `launche
 
 | Your Mac | RAM | What `setup.sh` installs for you |
 |----------|-----|-------------------|
-| MacBook Air / base M1-M4 | **16 GB** | 🟡 **Hermes 4 14B** — yes, this works |
-| M1/M2/M3/M4 Pro | 32-48 GB | 🟢 Gemma 4 12B |
-| M2/M3/M4/M5 Max | 64-95 GB | 🟢 **Gemma 4 31B** |
-| M3/M4/M5 Max · Ultra | 96 GB+ | 🟣 Qwen 3.8 27B bf16, 🔵 Qwen 3.5 122B, 🟠 Llama 70B, 🐳 DeepSeek |
+| Base M-series | under 16 GB | 🟠 Gemma 4 E4B (tool calls will be unreliable) |
+| MacBook Air / base M1-M5 | **16 GB** | 🟡 **Hermes 4 14B** |
+| M1-M5 Pro | 32-63 GB | 🟢 Gemma 4 12B |
+| M2-M5 Max | 64-95 GB | 🟢 **Gemma 4 31B** |
+| M3-M5 Max · Ultra | 96 GB+ | 🟣 **Qwen 3.8 27B** (8-bit) |
 
 Also need:
 - 🐍 **Python 3.12+** (for MLX)
@@ -277,8 +256,8 @@ bash setup.sh
 python3.12 -m venv ~/.local/mlx-server
 ~/.local/mlx-server/bin/pip install mlx-lm
 
-# 2. Pick a fighter and download (one time, ~18-75 GB)
-bash scripts/download-and-import.sh gemma   # or 'llama' or 'qwen'
+# 2. Pick a model and download it (one time, 5-30 GB)
+bash scripts/download-and-import.sh gemma   # or 'qwen', 'gemma12', 'hermes'
 
 # 3. Start the server
 MLX_MODEL=divinetribe/gemma-4-31b-it-abliterated-4bit-mlx \
@@ -305,7 +284,7 @@ claude --model claude-sonnet-4-6
 │                      │                           │
 │                      ▼                           │
 │                 🥊 Local model ──> 🖥️  GPU        │
-│                 (Gemma·Llama·Qwen)               │
+│                 (Gemma·Qwen·Hermes)              │
 │                      │                           │
 │                      ▼                           │
 │  📝 Answer <─── ✨ Clean response                │
@@ -318,7 +297,7 @@ The server (`proxy/server.py`) is **one file, ~1000 lines**. It does six things:
 
 1. 📦 **Loads the model** — Apple's MLX framework, native Metal GPU, unified memory. Handles Gemma's `RotatingKVCache` quirk automatically.
 2. 🔌 **Speaks Anthropic API** — Claude Code thinks it's talking to Anthropic's cloud. It's not.
-3. 🔧 **Translates tool use** — Three tool-call formats in and out: Gemma 4 native, Llama 3.3 raw JSON, and HuggingFace `<tool_call>` JSON (Qwen and others). All converted ↔ Anthropic `tool_use` blocks, with garbled-output recovery for small models.
+3. 🔧 **Translates tool use** — Three tool-call formats in and out: Gemma 4 native, Llama-style raw JSON, and HuggingFace `<tool_call>` JSON (Qwen and others). All converted ↔ Anthropic `tool_use` blocks, with garbled-output recovery for small models.
 4. 🧹 **Cleans the output** — A real-time `ThinkingFilter` strips `<think>` blocks token-by-token during generation, then `clean_response` handles stop markers and reasoning preamble.
 5. ⚡ **Reuses prompt caches across requests** — Claude Code's system prompt doesn't get re-prefilled every turn. Huge speedup for short questions.
 6. 🎯 **Code mode** — auto-detects Claude Code coding sessions, swaps the ~10K-token harness prompt for a slim ~150-token one, and strips verbose tool descriptions to name + parameter types. A **28× prompt reduction** that cuts prefill from ~60 s to ~2 s on Gemma 4 31B.
@@ -380,7 +359,9 @@ This is the part we're proudest of. **Your code never leaves your Mac.** Not for
 
 ## 📊 Benchmarks
 
-### ⚡ Speed Comparison
+### ⚡ Speed Comparison (history)
+
+How the server got fast, April 2026. Gens 1-3 were measured with the big MoE model we shipped then; today's model speeds are in the lineup table above.
 
 | Generation | Approach | Speed | Real Claude Code task |
 |---|---|---:|---:|
@@ -452,12 +433,12 @@ fix is what made the deeper rotating-cache problem visible. Thank you.
 
 | | 🖥️ **Our Local Setup** | ☁️ Claude Sonnet | ☁️ Claude Opus |
 |---|:---:|:---:|:---:|
-| Speed | 65 tok/s | ~80 tok/s | ~40 tok/s |
+| Speed | 17.9–39.9 tok/s (Qwen 3.8 27B), 26 (Gemma 4 31B) | ~80 tok/s | ~40 tok/s |
 | Monthly cost | **$0** 🎉 | $20-100+ | $20-100+ |
 | Privacy | **100% local** 🔒 | Cloud | Cloud |
 | Works offline | **Yes** ✈️ | No | No |
 
-> Qwen 3.5 numbers measured on an M5 Max 128 GB — full runs, including Qwen 3.8 at bf16, in [BENCHMARKS.md](BENCHMARKS.md).
+> Local speeds measured on an M5 Max 128 GB. More in [BENCHMARKS.md](BENCHMARKS.md).
 
 ---
 
@@ -545,12 +526,12 @@ Not part of this stack — separate projects, same rule: **the model runs on you
 
 We ship fast and in public. If any of these excite you, hit **Watch** to get the release ping.
 
-- 🟣 **Qwen 3.8 27B launcher** — wire the bf16 + DFlash 2 server into `Claude Local.command` and the tool-call translator (today it's served by `mlx-dspark` on its own port)
-- 🟡 **Full Qwen 3.5 122B benchmark suite** — reliability, tool-call pass rate, long-context behavior vs Gemma
+- 🟣 **DFlash 2 in the Claude Code path** — `Qwen 3.8 Code.command` runs 8-bit through this server today; the drafter (2.2× faster) still runs through `mlx-dspark` on its own port
+- 🟡 **Agent-12 runs for Gemma 4 12B, Hermes 4 14B and Muse-Glimmer** so every model we ship has our own numbers
 - 🟡 **Fully-local Whisper fallback** — alternative to the Apple `SFSpeechRecognizer` path for older Macs and non-English voices
 - 🟡 **One-click DMG installer** — no terminal needed
 - 🟡 **`MLX_MODEL=<hf-url>`** — point at any HuggingFace repo and auto-register a new fighter
-- 🟡 **More fighters** — open to PRs adding launchers for DeepSeek, Mistral, Phi, anything MLX-compatible
+- 🟡 **More models** — open to PRs adding launchers for anything MLX-compatible
 
 > 💡 Want something that's not on this list? [**Open an issue →**](https://github.com/nicedreamzapp/claude-code-local/issues/new) Every serious request gets read and usually replied to within 24h.
 

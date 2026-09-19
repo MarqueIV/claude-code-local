@@ -42,7 +42,7 @@ _mlx_model_matches() {
 }
 
 _wait_for_mlx_health() {
-  # 180 attempts × 2s = 6 minutes. Enough for a cold load of Llama 70B 8-bit
+  # 180 attempts × 2s = 6 minutes. Enough for a cold load of a large 8-bit model
   # on a warm file cache; not enough for a first-time download from HF — use
   # resolve_mlx_model to point at a local path and avoid downloads entirely.
   local attempts="${1:-180}"

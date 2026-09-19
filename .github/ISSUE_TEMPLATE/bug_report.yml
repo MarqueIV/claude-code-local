@@ -7,9 +7,12 @@ body:
     attributes:
       label: Which model?
       options:
+        - Qwen 3.8 27B
         - Gemma 4 31B
-        - Llama 3.3 70B
-        - Qwen 3.5 122B
+        - Gemma 4 12B
+        - Hermes 4 14B
+        - Gemma 4 E4B
+        - Other
     validations:
       required: true
   - type: input

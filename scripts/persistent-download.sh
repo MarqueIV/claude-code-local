@@ -1,11 +1,11 @@
 #!/bin/bash
 # Persistent model download — auto-restarts on every failure.
-# Useful for big models (Qwen 122B is ~75 GB) on flaky connections.
+# Useful for big models (Qwen 3.8 27B 8-bit is ~29 GB) on flaky connections.
 #
 # Usage:
 #   bash scripts/persistent-download.sh                              # default Gemma 4 31B
-#   bash scripts/persistent-download.sh qwen                         # Qwen 3.5 122B
-#   bash scripts/persistent-download.sh llama                        # Llama 3.3 70B
+#   bash scripts/persistent-download.sh qwen                         # Qwen 3.8 27B, 8-bit
+#   bash scripts/persistent-download.sh hermes                       # Hermes 4 14B
 #   MLX_MODEL=<hf-id> bash scripts/persistent-download.sh
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"

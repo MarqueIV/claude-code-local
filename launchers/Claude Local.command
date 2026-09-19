@@ -14,7 +14,7 @@ MODEL_NAME="${MLX_MODEL_LABEL:-Gemma 4 31B}"
 
 # Default model matches server.py's default so this launcher behaves like
 # "the easy button." Override with MLX_MODEL=... before double-clicking, or
-# use the model-specific launchers for Llama/Qwen.
+# use the model-specific launchers (Gemma 4 Code, Qwen 3.8 Code).
 MLX_MODEL_DEFAULT="$(resolve_mlx_model \
   "$HOME/.cache/huggingface/hub/gemma-4-31b-it-abliterated-4bit-mlx" \
   "divinetribe/gemma-4-31b-it-abliterated-4bit-mlx")"

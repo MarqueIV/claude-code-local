@@ -13,19 +13,19 @@
 
 ---
 
-## 🥊 The Lineup — Three Fighters, One Server
+## 🥊 The Lineup (measured Aug–Sep 2026)
 
-The same MLX server runs all three. Just swap the `MLX_MODEL` env var.
+The same MLX server runs all of them. Just swap the `MLX_MODEL` env var.
 
-| Model | Tier | Architecture | Disk | RAM | tok/s | Best at |
-|---|---|---|:---:|:---:|:---:|---|
-| **Qwen 3.5 122B-A10B** | 🔵 THE BEAST | MoE 122B / 10B active, 4-bit | 65 GB | ~75 GB | **65** | Maximum throughput |
-| **Llama 3.3 70B Abliterated** ⭐ | 🟠 THE WISE ONE | Dense 71B, 8-bit affine, group 64, 128K ctx | 75 GB | ~75 GB | ~7 | Hardest reasoning |
-| **Gemma 4 31B Abliterated** | 🟢 THE QUICK ONE | Dense 31B, 4-bit IT | 18 GB | ~18 GB | ~15 | Daily coding, low RAM |
+| Model | Build | RAM | tok/s | Agent-12 (easy / hard) | Claude Code smoke test, Sep 19 |
+|---|---|:---:|:---:|:---:|:---:|
+| **Qwen 3.8 27B** | 8-bit ([lmstudio-community](https://huggingface.co/lmstudio-community/Qwen3.8-27B-MLX-8bit)) | ~29 GB | 17.9 (39.9 with DFlash 2) | 12/12 · 7/8 (8/8 with a bigger budget) | ✅ 38 s |
+| **Gemma 4 31B Abliterated** | 4-bit | ~18 GB | 26 | 11/12 · 8/8 | default launcher |
+| **Gemma 4 E4B** | 4-bit ([mlx-community](https://huggingface.co/mlx-community/gemma-4-e4b-it-4bit)) | ~5 GB | — | — | ❌ reported running a file it never wrote |
 
-> ⭐ The Llama 3.3 70B build is **our own MLX-packed upload**: [`divinetribe/Llama-3.3-70B-Instruct-abliterated-8bit-mlx`](https://huggingface.co/divinetribe/Llama-3.3-70B-Instruct-abliterated-8bit-mlx). 8-bit affine quantization with group size 64, chosen to preserve quality over minimal footprint. Built on top of [huihui-ai's abliteration](https://huggingface.co/huihui-ai) of Meta's Llama 3.3 70B Instruct.
+The smoke test: `claude -p` against this repo's server, in an empty folder, asked to create `hello.py` that prints 2+2, run it and report. Pass means the file exists and prints 4. Agent-12 scores are from its own lean harness, not Claude Code: [leaderboard](https://nicedreamzapp.github.io/agent12/).
 
-> Qwen wins raw tok/s because only 10B of its 122B params activate per token (MoE). Llama is the slowest but the smartest at 8-bit full precision. Gemma is the lightweight champion — fits on a 64 GB Mac with room to spare.
+**Browser test (Sep 16).** Four jobs in four real tabs, checked by script. Gemma 4 31B (bf16): 8/8, 123 s one at a time, 110 s all at once. Qwen 3.8 27B (bf16): 8/8, 175 s and 176 s.
 
 ---
 
@@ -42,7 +42,7 @@ That is a **3.8× speedup with zero precision loss**: the drafter only proposes,
 
 ---
 
-## Generation Speed (Qwen 3.5 122B — measured)
+## History: generation speed of the April 2026 flagship model
 
 | Max Tokens | Output Tokens | Time | **Tokens/sec** |
 |:---:|:---:|:---:|:---:|
@@ -50,11 +50,11 @@ That is a **3.8× speedup with zero precision loss**: the drafter only proposes,
 | 500 | 500 | 7.7s | **64.8 tok/s** |
 | 1000 | 1000 | 15.3s | **65.4 tok/s** |
 
-Sustained generation at 65 tok/s. Short requests are slower (45 tok/s) due to prompt-processing overhead amortized over fewer tokens.
+Kept as a record of the server's speed work. That model is no longer in the lineup. Sustained generation at 65 tok/s. Short requests are slower (45 tok/s) due to prompt-processing overhead amortized over fewer tokens.
 
 ---
 
-## Three Generations — Our Optimization Journey
+## Three Generations — Our Optimization Journey (April 2026)
 
 ```
 Generation Speed (tok/s):
@@ -103,7 +103,6 @@ Our local setup **beats cloud Opus on speed** (65 vs 40 tok/s) and is within str
 | **MLX framework** | Apple's own ML framework, built for Metal GPU + unified memory |
 | **Native Anthropic API** | Server speaks Claude Code's language directly |
 | **Unified memory** | Zero-copy between CPU and GPU — model weights stay in place |
-| **MoE efficiency (Qwen 122B)** | Only 10B of 122B params activate per token — fast on unified memory |
 
 ---
 
@@ -136,5 +135,5 @@ Generation speed is hardware-bound at ~13.5 tok/s on M4 Pro (memory bandwidth li
 - Claude Code E2E includes full Claude Code startup, system prompt processing, and generation
 - KV cache quantized via MLX's built-in `QuantizedKVCache`
 - Temperature: 0.2 for tool-call reliability runs, 0.7 for raw generation runs
-- Qwen 122B numbers are measured. Gemma 4 31B (~15 tok/s) and Llama 3.3 70B (~7 tok/s) are observed approximations from real-world Claude Code usage on the same M5 Max — full benchmarks pending.
-- Qwen 3.8 27B numbers (9.7 / 36.5 tok/s) are single measured runs via `mlx-dspark generate`, greedy, 600 tokens, reported by the engine itself; not yet measured end-to-end inside Claude Code.
+- The April 2026 history sections were measured on the flagship model of that time. Gemma 4 31B's 26 tok/s is from the Agent-12 runs.
+- Qwen 3.8 27B bf16 numbers (9.7 / 36.5 tok/s) are single measured runs via `mlx-dspark generate`, greedy, 600 tokens. The 8-bit numbers (17.9 / 39.9 tok/s) are the same kind of run, 400 tokens, Aug 20. The 8-bit build passed the Claude Code smoke test on Sep 19.

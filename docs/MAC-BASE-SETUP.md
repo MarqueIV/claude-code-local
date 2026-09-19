@@ -1,5 +1,7 @@
 # Mac Base / Pro 16 GB Setup Guide
 
+> **Note (Sep 2026):** this guide, contributed by [@tadrianonet](https://github.com/tadrianonet) in [#32](https://github.com/nicedreamzapp/claude-code-local/pull/32), documents the fixes that first made 16 GB Macs work. The model it names (Qwen 2.5 Coder 14B) was the pick back then. `setup.sh` now installs **Hermes 4 14B** on 16 GB Macs, confirmed working in [#54](https://github.com/nicedreamzapp/claude-code-local/issues/54). The parser and login fixes below still apply.
+
 Este documento descreve as adaptacoes necessarias para rodar
 `claude-code-local` em MacBooks Apple Silicon de entrada/Pro com **16 GB
 de memoria unificada** - hardware abaixo do alvo original do projeto

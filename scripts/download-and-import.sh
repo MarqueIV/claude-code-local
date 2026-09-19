@@ -3,8 +3,10 @@
 #
 # Usage:
 #   bash scripts/download-and-import.sh                  # default Gemma 4 31B
-#   bash scripts/download-and-import.sh qwen             # Qwen 3.5 122B
-#   bash scripts/download-and-import.sh llama            # Llama 3.3 70B
+#   bash scripts/download-and-import.sh qwen             # Qwen 3.8 27B, 8-bit
+#   bash scripts/download-and-import.sh gemma12          # Gemma 4 12B
+#   bash scripts/download-and-import.sh hermes           # Hermes 4 14B (16 GB Macs)
+#   bash scripts/download-and-import.sh llama            # Llama 3.3 70B (older, kept for existing users)
 #   MLX_MODEL=<hf-id> bash scripts/download-and-import.sh
 
 set -e
@@ -18,21 +20,29 @@ if [ ! -x "$MLX_PYTHON" ]; then
 fi
 
 case "${1:-}" in
-  qwen|qwen122|122b)
-    MODEL="${MLX_MODEL:-mlx-community/Qwen3.5-122B-A10B-4bit}"
-    LABEL="Qwen 3.5 122B (THE BEAST — 65 tok/s, ~75 GB RAM)"
+  qwen|qwen38|27b)
+    # https://huggingface.co/lmstudio-community/Qwen3.8-27B-MLX-8bit
+    MODEL="${MLX_MODEL:-lmstudio-community/Qwen3.8-27B-MLX-8bit}"
+    LABEL="Qwen 3.8 27B, 8-bit (~29 GB, 96 GB Macs)"
+    ;;
+  gemma12|12b)
+    MODEL="${MLX_MODEL:-divinetribe/gemma-4-12B-it-abliterated-4bit-mlx-text}"
+    LABEL="Gemma 4 12B Abliterated, 4-bit (~11 GB)"
+    ;;
+  hermes|14b)
+    MODEL="${MLX_MODEL:-divinetribe/Hermes-4-14B-abliterated-4bit-mlx}"
+    LABEL="Hermes 4 14B Abliterated, 4-bit (~8 GB, 16 GB Macs)"
     ;;
   llama|llama70|70b)
-    # Our own abliterated MLX upload:
-    #   https://huggingface.co/divinetribe/Llama-3.3-70B-Instruct-abliterated-8bit-mlx
+    # Older model, no current measurements. Kept so existing setups keep working.
     MODEL="${MLX_MODEL:-divinetribe/Llama-3.3-70B-Instruct-abliterated-8bit-mlx}"
-    LABEL="Llama 3.3 70B Abliterated (THE WISE ONE — ~7 tok/s, ~75 GB disk, divinetribe/8-bit MLX)"
+    LABEL="Llama 3.3 70B Abliterated, 8-bit (older, ~75 GB)"
     ;;
   gemma|gemma31|31b|"")
     # Our own abliterated MLX upload:
     #   https://huggingface.co/divinetribe/gemma-4-31b-it-abliterated-4bit-mlx
     MODEL="${MLX_MODEL:-divinetribe/gemma-4-31b-it-abliterated-4bit-mlx}"
-    LABEL="Gemma 4 31B Abliterated (THE QUICK ONE — ~15 tok/s, ~18 GB RAM, divinetribe/4-bit MLX)"
+    LABEL="Gemma 4 31B Abliterated, 4-bit (~18 GB)"
     ;;
   *)
     MODEL="$1"

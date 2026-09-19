@@ -1,9 +1,10 @@
 #!/bin/bash
-# Llama 70B — Claude Code on Llama 3.3 70B Abliterated (8-bit MLX)
+# Qwen 3.8 Code — Claude Code on Qwen 3.8 27B (8-bit MLX)
 # Double-click to launch
 #
-# THE WISE ONE — ~7 tok/s, ~70 GB RAM, full 8-bit precision, abliterated.
-# Slower but the most capable reasoning in the lineup. Needs 96+ GB unified memory.
+# ~29 GB of weights, 17.9 tok/s on an M5 Max. Passed a Claude Code smoke test
+# (write a file, run it, report) on 2026-09-19. Built for 96 GB Macs; runs on 64 GB
+# if little else is open. Replaced the old Llama 70B launcher.
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 source "$SCRIPT_DIR/lib/claude-local-common.sh"
@@ -11,26 +12,26 @@ source "$SCRIPT_DIR/lib/claude-local-common.sh"
 CLAUDE_BIN="${CLAUDE_BIN:-$(command -v claude || echo $HOME/.local/bin/claude)}"
 require_claude_bin
 
-# Default points at our own abliterated MLX upload:
-#   https://huggingface.co/divinetribe/Llama-3.3-70B-Instruct-abliterated-8bit-mlx
+# Default is lmstudio-community's MLX 8-bit build:
+#   https://huggingface.co/lmstudio-community/Qwen3.8-27B-MLX-8bit
 # Override with MLX_MODEL=<your-path-or-hf-id>. Prefers a local flat-folder
 # cache if already downloaded, so we load directly instead of re-pulling.
 MLX_MODEL_DEFAULT="$(resolve_mlx_model \
-  "$HOME/.cache/huggingface/hub/Llama-3.3-70B-Instruct-abliterated-8bit-mlx" \
-  "divinetribe/Llama-3.3-70B-Instruct-abliterated-8bit-mlx")"
+  "$HOME/.cache/huggingface/hub/Qwen3.8-27B-MLX-8bit" \
+  "lmstudio-community/Qwen3.8-27B-MLX-8bit")"
 
 ensure_mlx_server "${MLX_MODEL:-$MLX_MODEL_DEFAULT}" \
-  "  Loading Llama 3.3 70B Abliterated on MLX (~7 tok/s, 8-bit full precision)..."
+  "  Loading Qwen 3.8 27B on MLX (8-bit, ~29 GB)..."
 
 clear
 echo ""
-echo "  → Claude Code with LOCAL AI (Llama 3.3 70B Abliterated)"
-echo "  → MLX Native: ~7 tok/s, 8-bit full precision, abliterated"
+echo "  → Claude Code with LOCAL AI (Qwen 3.8 27B)"
+echo "  → MLX Native: 8-bit, ~18 tok/s on an M5 Max"
 echo "  → Running on Apple Silicon — no cloud, no API fees"
 echo ""
 
 ANTHROPIC_BASE_URL=http://localhost:4000 \
-CLAUDE_SESSION_LABEL="Llama 70B · Local" \
+CLAUDE_SESSION_LABEL="Qwen 3.8 · Local" \
 exec "$CLAUDE_BIN" --model claude-sonnet-4-6 \
   --permission-mode auto \
   --settings "$SCRIPT_DIR/lib/local-settings.json" \

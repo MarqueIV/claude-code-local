@@ -108,8 +108,13 @@ if [ "$KEEP_MODELS" -eq 1 ]; then
 elif [ -d "$HF_CACHE" ]; then
   # Only list the models setup.sh might have downloaded
   MODEL_DIRS=(
-    "models--mlx-community--Qwen3.5-122B-A10B-4bit"
+    "models--lmstudio-community--Qwen3.8-27B-MLX-8bit"
     "models--divinetribe--gemma-4-31b-it-abliterated-4bit-mlx"
+    "models--divinetribe--gemma-4-12B-it-abliterated-4bit-mlx-text"
+    "models--divinetribe--Hermes-4-14B-abliterated-4bit-mlx"
+    "models--mlx-community--gemma-4-e4b-it-4bit"
+    # older setup.sh picks
+    "models--mlx-community--Qwen3.5-122B-A10B-4bit"
     "models--mlx-community--Qwen3.5-4B-4bit"
   )
 
